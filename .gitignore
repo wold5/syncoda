@@ -1,0 +1,9 @@
+public/
+_local/
+zola*
+*.7z
+*.zip
+*.deb
+*.rpm
+*.msi
+*.exe

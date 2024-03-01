@@ -1,0 +1,6 @@
+0.9.9 Jul 22th
+- Improved: HTML export (layout, colors)
+- Improved: CSV export (added variables)
+- Improved: set debugmode from GUI, added logfile option to CLI
+- Added: Raw SQL export option
+- Windows: updated Qt libraries

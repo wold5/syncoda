@@ -1,0 +1,13 @@
+0.13.1 June 28th 2023
+- fixed: toggling localmirror state triggers device/LM rescan + reworked
+- fixed: minimum date filter now accounts for annotations with dates older than 1st annotation
+- fixed: resize portrait annotation image width if it exceeds column width
+- fixed: uploader uses correct storage ids
+
+- added: sort by annotation ID option
+- added: Linux releases for Fedora 37 and Debian 12 (Qt 6.5 and 6.4 respectively)
+- updated: Windows Qt to 6.5.1 (possibly fixes Win11 0x0000005c issue)
+
+- added: additional storage state icons
+- changed: allow overwriting LM DBs using older dated ones
+- changed: shortened window title for Window Managers

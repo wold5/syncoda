@@ -1,0 +1,3 @@
+- Windows: Windows 8/10/11+ (Win7 may work)
+- Linux Redhat: Fedora WS 35 (glibc 2.34, libzip 1.6, Qt5)
+- Debian: Bullseye (~Ubuntu 20+), Buster/Compatible (~Ubuntu 18-19)

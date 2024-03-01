@@ -1,0 +1,9 @@
+0.9.8.3 Jun 20th
+- Fixed: Show creation date for annotations
+- Fixed: Correct raw page numbers
+- Linux fix: enforce UTF-8 for config files
+- Fixed: Debug display UTF-8 issues
+- Changed: write logfile to OS temporary location
+- Windows: updated zlib and libzip libraries
+- Stick to C++17 spec for now
+- Minor changes

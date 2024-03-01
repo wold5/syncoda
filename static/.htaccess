@@ -1,0 +1,19 @@
+ErrorDocument 404 /404.html
+
+# Redirect for Hugo RSS feed
+Redirect 301 /index.xml /atom.xml
+Redirect 301 /assets/favicon-32x32.png /favicon-32x32.png
+
+# fix odd redirect (faulty install??)
+# \/ fixes issues with trailing slash: https://stackoverflow.com/questions/45312733/mod-rewrite-remove-trailing-slash-for-specific-files-only
+RewriteRule ^software/avater/https:/www.syncoda.nl/files/avater/(.*).txt\/?$ /files/avater/$1.txt [R=301,L]
+
+# Redirect 0.9.7 updater - new
+RewriteRule ^avater/files/(.*)$ /files/avater/$1 [L]
+RewriteRule ^avater/(.*)$ /software/avater/$1 [L]
+
+# Fix manual movement article
+RewriteRule ^software/avater/pages/manual_en/$ /software/avater/manuals/manual_en/ [L]
+
+# Manual rename 
+Redirect 301 /files/avater/help/ /software/avater/manuals/

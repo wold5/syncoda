@@ -1,0 +1,4 @@
+0.9.5 Mar 1st 2022 (first public release)
+- fixed devicelabel issue with unmirrored device
+- skip mount delay on startup
+- fixed switching to localmirror after enabling

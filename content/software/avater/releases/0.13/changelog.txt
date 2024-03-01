@@ -1,0 +1,21 @@
+0.13 May 4th 2023
+- Changed: also sync LocalMirror on DB size difference
+
+- Added: Report (partially) unmounted storage devices in GUI
+- Added: Tools warn on partially mounted e-readers
+- Added: Ignore duplicate device arrival signal (user-configurable)
+- Added: on enabling LocalMirror, ask user to confirm switch to LM DB.
+
+- Fixed (rare) warning on localmirror sync, when a modified annotation db was reloaded with the same row count
+- Fixed: Hardened DB metadata related functions
+- Fixed: Increased delay for "clear filters and show this row"
+- Fixed Windows: manual backup location not set on fresh install
+- Fixed: removed spurious warning on empty annotation row
+- Fixed: Remove checkDB warning for not found databases on removed storages
+
+Internal
+- Changed: Bulk process reader arrivals before signaling
+- Simplified signaling for devices and profiles/sources
+- Reworked localmirror sync (utilise internal metadata instead of filecopy outcome)
+- Removed prefs dependencies from ReaderManager
+

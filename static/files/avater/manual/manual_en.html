@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>AVATER help</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <style>
+  body {font-family: sans-serif; margin: 0px 5%;}
+  h2 {display: block; padding: 10px; color: white; background-color: orangered;}
+  h3 {text-decoration: underline; }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AVATER help</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#annotation-viewer-and-tools-for-pocketbook-e-readers-avater-v0.13">Annotation Viewer and Tools for (PocketBook) E-Readers (AVATeR) [v0.13]</a>
+<ul>
+<li><a href="#requirements">Requirements</a>
+<ul>
+<li><a href="#supported-e-reader-devices">Supported E-Reader devices</a></li>
+<li><a href="#windows">Windows</a></li>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#performance-notes">Performance notes</a></li>
+</ul></li>
+<li><a href="#configuration-files">Configuration files</a>
+<ul>
+<li><a href="#configuration-file-precedence-overrides">Configuration file precedence / overrides</a></li>
+<li><a href="#portable-mode">Portable mode</a></li>
+</ul></li>
+<li><a href="#cli-options">CLI Options</a></li>
+<li><a href="#main-menu">Main menu</a>
+<ul>
+<li><a href="#main">Main</a></li>
+<li><a href="#profilesannotation-sources-menu-0.10">Profiles/Annotation Sources menu (0.10+)</a></li>
+<li><a href="#help-menu">Help menu</a></li>
+<li><a href="#debug-menu-0.9.9">Debug menu (0.9.9+)</a>
+<ul>
+<li><a href="#log-selected-row-sql-data-0.9.9-experimental">Log selected row SQL data (0.9.9+, experimental)</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#device-toolbar">Device Toolbar</a>
+<ul>
+<li><a href="#scan-for-devices-button-optional">Scan for devices button (optional)</a></li>
+<li><a href="#eject-device-button">Eject device button</a></li>
+<li><a href="#device-selector">Device selector</a></li>
+<li><a href="#device-tools">(Device) Tools</a>
+<ul>
+<li><a href="#send-files-to-device">Send files to device</a></li>
+<li><a href="#manual-backup-device">Manual Backup Device</a></li>
+<li><a href="#check-db-integrity">Check DB integrity</a></li>
+<li><a href="#mergefix-annotations-on-device">Merge/Fix annotations on device</a></li>
+<li><a href="#local-db-mirror">Local DB mirror</a></li>
+<li><a href="#add-devicelabel">Add Devicelabel</a></li>
+</ul></li>
+<li><a href="#load-annotations-button-optional">Load annotations button (optional)</a></li>
+</ul></li>
+<li><a href="#annotation-viewer">Annotation Viewer</a>
+<ul>
+<li><a href="#searching-annotation-data">Searching annotation data</a></li>
+<li><a href="#sorting-annotations">Sorting annotations</a></li>
+<li><a href="#additional-options">Additional options</a></li>
+<li><a href="#exporting-annotations">Exporting annotations</a></li>
+</ul></li>
+<li><a href="#other-topics">Other Topics</a>
+<ul>
+<li><a href="#known-issues">Known Issues</a>
+<ul>
+<li><a href="#missing-page-numbers">Missing page numbers</a></li>
+<li><a href="#reader-disconnection-during-runningpending-operations">Reader disconnection during running/pending operations</a></li>
+<li><a href="#connecting-many-readers-at-once">Connecting many readers at once</a></li>
+<li><a href="#improving-program-performance">Improving program performance</a></li>
+<li><a href="#markdown-export-issues-v0.10">Markdown export issues (v0.10+)</a></li>
+<li><a href="#linux-no-or-limited-debug-messages">Linux: no or limited debug messages</a></li>
+<li><a href="#windows-virtualcd-usb-detection-compatibility-0.12.1-and-lower">Windows: VirtualCD USB detection compatibility (0.12.1 and lower)</a></li>
+<li><a href="#minor-issues">Minor issues</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#faq">FAQ</a>
+<ul>
+<li><a href="#enabling-debug-logging">Enabling debug logging</a></li>
+<li><a href="#reader-device-is-not-recognized-or-shown">Reader device is not recognized or shown</a></li>
+<li><a href="#columns-are-compressed-or-text-is-invisible">Columns are compressed or text is invisible</a></li>
+<li><a href="#persistent-crash-directly-on-start-up-v0.10">Persistent crash directly on start-up (&lt;v0.10)</a></li>
+<li><a href="#is-the-device-database-safe">Is the device data(base) safe?</a></li>
+<li><a href="#appendix-pocketbook-recovery-details">Appendix: PocketBook recovery details</a></li>
+</ul></li>
+<li><a href="#and-more">And more…</a>
+<ul>
+<li><a href="#historychangelogroadmap">History/changelog/roadmap</a></li>
+<li><a href="#donationpurchasing">Donation/purchasing</a></li>
+<li><a href="#privacy">Privacy</a></li>
+<li><a href="#support-bugs-feature-requests-etc">Support / Bugs / Feature requests / etc</a></li>
+<li><a href="#copyright-license">Copyright / License</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="annotation-viewer-and-tools-for-pocketbook-e-readers-avater-v0.13">Annotation Viewer and Tools for (PocketBook) E-Readers (AVATeR) [v0.13]</h1>
+<p>Interactive annotation viewer/exporter for <strong>PocketBook e-readers</strong>, with additional tools.</p>
+<p>We do:</p>
+<ul>
+<li><strong>interactive annotations reading, searching and exporting</strong> directly from the e-reader</li>
+<li><strong>store annotations locally</strong> for viewing after disconnecting</li>
+<li>provide basic <strong>tools</strong> for e-readers</li>
+<li><strong>backup</strong> device databases and other files</li>
+</ul>
+<p>We don’t:</p>
+<ul>
+<li>manage device content or an e-book library</li>
+<li>modify e-book files</li>
+</ul>
+<p>Some highlights</p>
+<ul>
+<li><strong>auto-detect e-reader (dis)connection</strong></li>
+<li>cross-platform: Windows and Linux. (Apple is planned)</li>
+<li>device settings/annotation files can be easily copied/synced.</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<h3 id="supported-e-reader-devices">Supported E-Reader devices</h3>
+<ul>
+<li>PocketBook e-readers, with recent 6.x firmware, and late 5.x firmware (please report any compatibility issues)</li>
+<li>Vivlio e-readers (rebranded PocketBook e-readers)</li>
+</ul>
+<h3 id="windows">Windows</h3>
+<ul>
+<li>Windows 10/11 (64-bit Intel/AMD compatible only currently)</li>
+<li>Version 0.13.x and older support Windows 7,8. If you need a working version, please contact us.</li>
+</ul>
+<h3 id="linux">Linux</h3>
+<ul>
+<li>requires udev (kernel support), Qt5, LibZip libraries</li>
+<li>typical &lt;100MB memory</li>
+</ul>
+<h3 id="performance-notes">Performance notes</h3>
+<ul>
+<li><p>Loading annotations <strong>directly</strong> from a device takes longer due to their slower storage mediums: the ‘local mirror’ feature improves this. See also <a href="#improvePerformance">performance improvements</a>.</p></li>
+<li><p>performance is expected to be good to acceptable even on older hardware. Some optimizations are available under “Settings &gt; Annotation Viewer”.</p></li>
+</ul>
+<p><a name="configurationfiles"></a></p>
+<h2 id="configuration-files">Configuration files</h2>
+<ul>
+<li>A. <strong>generic settings file</strong>: (avater.conf) UI related, considered to be ‘local’ to the device; stored in system config dir;</li>
+<li>B. <strong>device settings file</strong> (devices.conf): device related information, stored in data directory;</li>
+<li>C. <strong>data directory</strong>: directory with <em>device settings</em>, backup and <em>locally mirrored DB</em> files.</li>
+</ul>
+<p>The data directory [C] may be synced across devices. The <em>generic settings</em> [A] are then configured locally, but this can be overridden using the CLI. However, these settings are few and easily reproduced.</p>
+<h3 id="configuration-file-precedence-overrides">Configuration file precedence / overrides</h3>
+<p>Option (4) is the default situation. Any earlier condition takes precedence / overrides the default.</p>
+<pre><code>1. Portable mode (See below and &quot;CLI Options&quot;)
+2. CLI provided locations
+3. GUI configured data location (settings dialog)
+4. Default locations (Qt derived) if not provided by (2) and (3)</code></pre>
+<h3 id="portable-mode">Portable mode</h3>
+<p>Stores all settings and files in the application directory ‘&lt;APP_DIR&gt;’:</p>
+<pre><code>- avater.conf: &lt;APPDIR&gt;/avater.conf
+- data: &lt;APPDIR&gt;/data/
+- devices.conf: &lt;APP_DIR&gt;/data/devices.conf</code></pre>
+<h2 id="cli-options">CLI Options</h2>
+<!-- Keep h5 to avoid TOC inclusion -->
+<h5 id="help">- - help</h5>
+<p>Show available options.</p>
+<h5 id="p-----portable">- p / - - portable</h5>
+<p>Run application in portable mode.</p>
+<p><em>Note: To convert a default ‘data’ directory for use with portable: copy/move it into the application directory. See also Settings and files</em>.</p>
+<h5 id="settingsdir">- - settingsdir <DIRECTORY></h5>
+<p>Overrides the location of the <em>generic</em> avater.conf file.</p>
+<h5 id="datadir">- - datadir <DIRECTORY></h5>
+<p>Overrides the location of <em>both</em> the default/user-set data directory, and the therein stored devices.conf file.</p>
+<h5 id="debug">- - debug</h5>
+<p>Enable debug logging to stdout.</p>
+<p><em>Note: CLI debug settings take precedence over preference debug settings (see “settings &gt; advanced”).</em></p>
+<h5 id="debuglogfile-0.9.9">- - debuglogfile (0.9.9+)</h5>
+<p>Enable debug logging to the provided file. A text file will be created if necessary (write permission is not checked, and will fail silently). The log is accessible from the GUI help/debug menu.</p>
+<p><em>Note: CLI debug settings take precedence over preference debug settings (see “settings &gt; advanced”).</em></p>
+<h5 id="notes">Notes</h5>
+<ul>
+<li>relative paths are converted to absolute</li>
+<li>both forward/backward slashes are accepted</li>
+<li>data directory and it’s content will be created <em>when</em> necessitated by user action.</li>
+</ul>
+<h2 id="main-menu">Main menu</h2>
+<p><img src="./screenshot-topmenu.png" title="Application menu" /></p>
+<h3 id="main">Main</h3>
+<p><a name="scandevices"></a></p>
+<h5 id="rescan-devices-f5">Rescan devices (F5)</h5>
+<p>Scans system for new or removed devices. This includes:</p>
+<ul>
+<li>USB devices</li>
+<li>Local DB mirrors</li>
+</ul>
+<p>Both USB devices, and local mirrors (0.9.8+) are removed if not found (removed from the program, not unmounted - for local mirrors no files are removed).</p>
+<h5 id="eject-all-devices">Eject all devices</h5>
+<p>Removes all USB devices from the program - <em>but does not unmount</em> these from the OS.</p>
+<!--
+##### Load archived annotations
+Allows importing annotations from a backup archive, into a 'virtual' device. *Currently only creates a temporary device.*
+
+The provided name is used as the devicename in the device selector. You may afterwards also set a devicelabel, but it will _not_ be saved.
+-->
+<h5 id="open-datadir-path">Open datadir path</h5>
+<p>If created, opens the ‘data’ directory using the OS’ file browser. See <a href="#configurationfiles">configuration files</a>. Note: this directory is created when needed.</p>
+<h5 id="check-for-updates-optional">Check for updates (optional)</h5>
+<p>Manually check for a new program version. If an update is found, a prompt offers the choice of visiting the download page. Alternatively, you may enable/disable the automatic update check under settings.</p>
+<h5 id="settings">Settings</h5>
+<p>Opens the settings dialog. Settings are undocumented, but hovering over labels/options will show ‘tooltip’ pop-ups with information.</p>
+<h3 id="profilesannotation-sources-menu-0.10">Profiles/Annotation Sources menu (0.10+)</h3>
+<p>Any found and supported annotation sources (i.e. PB profiles) are shown here. Selecting one will clear the viewer and will load any of that source its annotations.</p>
+<h3 id="help-menu">Help menu</h3>
+<p>Offers various links and the about window, but version information.</p>
+<h3 id="debug-menu-0.9.9">Debug menu (0.9.9+)</h3>
+<p>If either debug mode is enabled, the debug menu is shown.</p>
+<h4 id="log-selected-row-sql-data-0.9.9-experimental">Log selected row SQL data (0.9.9+, experimental)</h4>
+<p>For selected annotations, this outputs the ‘raw’ SQL data to the debug log. This can be used by the developers to solve certain problems.</p>
+<p><em>Note: The export is currently hardcoded to use the local mirror when mirroring is enabled, else the device’s databases.</em></p>
+<h5 id="open-debug-logfile">Open debug logfile</h5>
+<p>Accessible if debug messages are logged to a logfile.</p>
+<p>Debug logging can be enabled from the settings menu or the CLI. Consult the FAQ (near the end of this document) for more details.</p>
+<p><a id="devicetoolbar"></a></p>
+<h2 id="device-toolbar">Device Toolbar</h2>
+<p><img src="./screenshot-devicetoolbar.png" title="Device toolbar" /></p>
+<h3 id="scan-for-devices-button-optional">Scan for devices button (optional)</h3>
+<p>Scans system for new or removed devices. See also <a href="#scandevices">Rescan Devices</a></p>
+<h3 id="eject-device-button">Eject device button</h3>
+<p>Removes the device from the program. This does <strong>not unmount</strong> the device.</p>
+<p>If the device has a ‘<em>local db mirror</em>’, the device entry is kept, is labeled as disconnected, and any device references are purged. Ejecting ‘local mirrors’ does nothing.</p>
+<h3 id="device-selector">Device selector</h3>
+<p>Select one of multiple devices or <em>locally mirrored (LM) devices</em>.</p>
+<h5 id="device-state-icon">Device state icon</h5>
+<p>Mounted devices are displayed in dark grey, unmounted in light grey. Local Mirror entries are indicated by a circle on the left; e-readers by a square on the right, with an optional SD-card symbol in the middle.</p>
+<h5 id="switching-and-loading-annotations">Switching and loading annotations</h5>
+<p>Switching between devices loads the annotations for the selected device (unless disabled under <em>settings &gt; Annotationsviewer</em>). Previously loaded annotations are kept in memory until the device is removed from the program (for <em>local DB mirrors</em> this will not occur).</p>
+<h5 id="custom-device-label">Custom device label</h5>
+<p>You may add a custom label using “Device Tools &gt; Set Devicelabel”. For example the model type.</p>
+<h3 id="device-tools">(Device) Tools</h3>
+<p>Available tools may differ per device and vendor.</p>
+<hr />
+<h4 id="send-files-to-device">Send files to device</h4>
+<p>This tool copies system files, such as apps and fonts, to their appropriate folders on the reader memory (or card memory).</p>
+<p>It’s mainly intended for (partially) restoring backups generated by the program.</p>
+<p><img src="screenshot-uploader.png" /></p>
+<h5 id="currently-supports-sending-the-following-systemapp-files">Currently supports sending the following system/app files:</h5>
+<pre><code>- .acsm (adobe digital download file)
+- .app
+- .dic (dictionary)
+- .pbi (dictionary/app)
+- .ttf (font)
+- .otf (font)
+- .ttc (font)
+- .bin (update file)</code></pre>
+<h5 id="zip-support">.ZIP support</h5>
+<p>Files stored in .zip files, such as backup archives, can be processed and -if supported- extracted by the program.</p>
+<p><em>Note that marking such a file for deletion, will delete the parent archive, not the individual file.</em></p>
+<h5 id="uploading-of-ebooks-or-acsm-downloading">Uploading of eBooks or ACSM downloading?</h5>
+<p><em>Not implemented yet</em>. ACSM downloading is a planned feature.</p>
+<hr />
+<h4 id="manual-backup-device">Manual Backup Device</h4>
+<p>Creates a common .zip backup archive with selected device content.</p>
+<p><img src="screenshot-manualbackup.png" /></p>
+<p>Type of files to backup:</p>
+<ul>
+<li><p><strong>Databases:</strong> Copies the (e-book) metadata and annotation database(s). Databases are always archived, to prevent recovery problems at a later date.</p></li>
+<li><p><strong>Apps, Fonts, Dictionaries:</strong> No special remarks apply.</p></li>
+<li><p><strong>Other files (main/card):</strong> Back-up any other directories and files on the device, <strong>excluding</strong> a) the previously discussed types and b) the /system/ folder. The program will not remember these being checked to reduce device access.</p></li>
+</ul>
+<p><em>Note: e-Reader transfer speeds average at about 1-2 minutes per GB</em></p>
+<h5 id="warnings">Warnings</h5>
+<p>If a detected main or card device is unmounted when opening the dialog, a warning is shown. You may continue at your own discretion.</p>
+<p>If a device is disconnected or unmounted between the moment of opening and clicking “OK”, the backup will be canceled. Rescan your devices to detect newly mounted devices.</p>
+<h5 id="compression">Compression</h5>
+<p>As e-Books and dictionary files tend to be already (maximally) compressed, these are ‘stored’ in the .zip archive, saving (processing) time.</p>
+<h5 id="backup-integrity-testing-and-long-term-storage">Backup integrity, testing and long term storage</h5>
+<p>Ideally the end-user (you) would tests back-ups, which is not practical. The program employs some precautions to ensure correct storage, and will (attempt to) warn on failure.</p>
+<p><em>Note regarding data integrity: the .zip format’s internal checksums can (only) indicate data corruption after storage or transmission. Depending on the value of your data, consider a good backup strategy, and hardware/software integrity features (ECC, ZFS, etc.).</em></p>
+<hr />
+<h4 id="check-db-integrity">Check DB integrity</h4>
+<p>This tool checks both device and locally mirrored databases (DBs) for errors. It utilizes SQLite’s (‘official’) “integrity_check” feature.</p>
+<p>Should any errors be indicated, click on “Show Details” for more information. Warnings regarding so-called ‘WAL’ files, or “database not found” are harmless; any other errors can indicate serious issues with the database or the device it’s (internal) memory.<br />
+Usually such errors are unrecoverable, but you may attempt to recover part or the whole DB using third party recovery tools (SQLite’s CLI tool is a free option).</p>
+<p><em>Note: ‘WAL file’ related errors may be ignored, and may not persist across checks. Errors relating to opening databases may occur when the device monitor is disabled (by user or a failure to start), and a device was disconnected.</em></p>
+<hr />
+<h4 id="mergefix-annotations-on-device">Merge/Fix annotations on device</h4>
+<p>This allows merging of bookmarks/annotations for similar e-books.</p>
+<p>After an e-book file is changed on the device, it may be treated as a new book. Examples are modifying metadata, or re-lending/downloading public library e-books. Afterwards, annotations from the previous file may no longer show for the ‘new’ file.</p>
+<p>Should the two e-books be (nearly) similar, one can transfer annotations between files. To do so, this tool searches for duplicated titles, and (interactively) modifies associated annotations to point to the (highest) ID representing the ‘newest’ book entry.</p>
+<p><img src="screenshot-mergefixannotations.png" title="Experimenting with .mobi to .epub conversions..." /></p>
+<p>In the tool GUI: - Parent items represent the ‘newest’ book version, with child items being older files. - The annotations count shows if any annotations can be transferred. - ‘DBSet/ProfileID’ refers to the annotation profile (this is usually 1, and can be ignored if so)</p>
+<p>If you are sure the child items refer to the same book (see warnings), you may check these titles for merging. Clicking the parent checks all child items. Next, click ‘Ok’ to apply the merge/fix.</p>
+<p><strong><span style="background-color:yellow">Warning:</span></strong></p>
+<ul>
+<li><p>Please <strong>backup your database</strong> file(s) first, for example using the ‘Manual backup’ menu option.</p></li>
+<li><p>The assumption is that the book content was not changed between each version. If it has, transferred annotations may point to the wrong locations, as the tool does not correct for this (yet).</p></li>
+<li><p>The PB database design tends towards adding or duplicating entries instead of modifying them. However, to avoid excessive duplication, this tool modifies data in-place.</p></li>
+</ul>
+<hr />
+<h4 id="local-db-mirror">Local DB mirror</h4>
+<p>Mirrors a device databases locally, for accessing annotations when a device is disconnected. It also provides a speed-up.</p>
+<p>If enabled for a device, the local mirror is updated whenever that device connects to the program. Annotations are then reloaded (or do so manually using the Viewer menu option “Reload annotations”).</p>
+<p>Note: this is a basic local caching solution, that leverages existing device support. A future centralized database is being considered.</p>
+<h5 id="warning-regarding-dual-use-as-autobackup"><span style="background-color:yellow">Warning regarding dual use as ‘autobackup’</span></h5>
+<p>Beware that a device reset (which resets the device DBs) will be carried over into the local mirror, thus erasing any previously locally stored annotations. Should you want to reset a device, store a manual backup <em>before</em> resetting. This backup can be imported to keep access to the annotations.</p>
+<hr />
+<h4 id="add-devicelabel">Add Devicelabel</h4>
+<p>The label provided here, will be shown in the device selector.</p>
+<hr />
+<h3 id="load-annotations-button-optional">Load annotations button (optional)</h3>
+<p>Only visible when auto-loading annotations is disabled (see settings). If your device is slow, this may improve startup time.</p>
+<h2 id="annotation-viewer">Annotation Viewer</h2>
+<p>The viewer displays annotation (meta)data in multiple columns.</p>
+<p><img src="./screenshot-annotationviewer.png" title="Annotation Viewer" /></p>
+<h5 id="column-visibility">Column visibility</h5>
+<p>Can be toggled by right-clicking in the ‘header’ bar (i.e. with “Title”, “Page”). By default, the “Date” and “Authors” columns are hidden.</p>
+<h5 id="highlightnote-texts">Highlight/note texts</h5>
+<p>Double clicking on the highlight or notes cell, allows selection and copying of text fragments. <em>Note: Newlines are currently not shown.</em></p>
+<h5 id="highlightnote-coloring-0.9.8">Highlight/note coloring (0.9.8+)</h5>
+<p>Highlight colors can be shown (since 0.9.8), with an optional color text abbreviation. See <a href="#additionalOptions">Additional options.</a>.</p>
+<h5 id="viewer-context-menu">Viewer context menu</h5>
+<p><img src="screenshot-exportcontextmenu.png" /></p>
+<p>The viewer context menu (right-click), offers short-cuts for filtering on that row’s fields.</p>
+<ul>
+<li><p><strong>Copy this cell</strong> copies the pointed to (single) cell’s content to the clipboard as raw text. For advanced export features, see the <a href="#exporting">exporting section</a>.</p></li>
+<li><p><strong>Copy selected row(s)</strong>: short-cut for copy to clipboard. Follows the GUI sorting mode; for advanced export features, see the <a href="#exporting">exporting section</a>.</p></li>
+<li><p><strong>Selecting text segments</strong> If wanting to select text segments within a highlight/note, double click that cell to access the text. (Note: rich text formatting is to be implemented)</p></li>
+<li><p><strong>Clear Filters and show this row</strong> Clears all filters, and attempts to move the display to show this row, or the <strong>first</strong> selected one.</p></li>
+</ul>
+<h3 id="searching-annotation-data">Searching annotation data</h3>
+<p><img src="./screenshot-annotationviewer-toolbar.png" title="Annotation Viewer Toolbar" /></p>
+<p>Allows interactive searching. Text searches are slightly delayed - this duration can be changed under “settings &gt; Annotation Viewer”.</p>
+<ul>
+<li>“Filter”: Filter annotations on date and page</li>
+<li>“Search author”: plain text search</li>
+<li>“Search title”: plain text search</li>
+<li>“Search highlights/notes”: Regular Expression search, of both Highlight and Note texts</li>
+</ul>
+<h5 id="case-sensitivity">Case sensitivity</h5>
+<p>Case sensitivity can be toggled under the Viewer Tools menu (right-most button).</p>
+<h5 id="regular-expression-support">Regular Expression support</h5>
+<p>Currently implemented only for “Search highlights/notes” (but trivial to do so elsewhere). A general grasp of ‘common’ regular expression syntax will be beneficial. Some examples:</p>
+<ul>
+<li>‘.’ represents any character or whitespace, i.e. “.and” will match “land” and “band”, but also " and".</li>
+<li>Brackets allow either/or matching, i.e. “[l|b]and” matches both “land” OR “band”.</li>
+<li>‘|’ represents an OR condition , i.e. “work|play” finds all entries with either “work” or “play” in them.</li>
+</ul>
+<p><em>Note: This is still a basic feature. If you have a specific use-case, feel free to inform the authors.</em></p>
+<p><a id="sortmodes"></a></p>
+<h3 id="sorting-annotations">Sorting annotations</h3>
+<p>The following sorting modes are available:</p>
+<ul>
+<li>sort by date (newest below)</li>
+<li>sort by title and date (newest below)</li>
+<li>sort by title and page/offset</li>
+<li>custom sorting (clicking the table header)</li>
+</ul>
+<p><em>Note: Custom sorting is partially implemented, and does not persist across restarts.</em></p>
+<p>Case sensitivity can be toggled under the Annotation Viewer menu.<br />
+Lastly, sorting of exported annotations can be <a href="#exportsortmodes">configured separately</a>.</p>
+<p><a id="additionalOptions"></a></p>
+<h3 id="additional-options">Additional options</h3>
+<p>Accessible via the right-most tools button.</p>
+<ul>
+<li><p><strong>Show notes inline:</strong> ‘Inlines’ the note texts into the highlight column, hiding the note column.</p></li>
+<li><p><strong>Show Bookmarks:</strong> Show or hide bookmarks in the viewer. These are hidden by default.<br />
+<em>Note: If selected, hiding them using option removes their selection status.</em></p></li>
+<li><p><strong>Show Deleted annotations (0.10+):</strong> Show or hide deleted annotations in the viewer: if enabled, deleted annotation rows will be shown slightly faded and have a “D” mark in the delete column. Note that deleted annotations may include modified annotations (their previous version).<br />
+<em>Note: If selected, hiding them using option removes their selection status.</em></p></li>
+<li><p><strong>Row color mode</strong> Sets the highlight color mode. Options include full row coloring (default), the ‘color column’ or disabled. <strong>Note: May require scrolling to update the view</strong></p></li>
+<li><p><strong>Toggle color text:</strong> Shows or hides a text abbreviation of the highlight color, for use in bad light conditions, UI ‘nightlight’ modes or for visually impaired users. <strong>Note: Scrolling may be needed to update the view.</strong></p></li>
+<li><p><strong>Resize Rows:</strong> Recomputes the row heights to show (nearly) all text. Should only be needed after resizing columns. Note: running this once, makes the auto-resize obsolete, until a (search) filter is applied.</p></li>
+<li><p><strong>Reload Annotations:</strong> Reloads only the (annotation) data, and prompts the viewer to update. <em>Normally not needed.</em></p></li>
+<li><p><strong>Reset Viewer:</strong> Resets both the viewer model, and reloads annotations. <em>Normally not needed.</em></p></li>
+</ul>
+<p><a id="exporting"></a></p>
+<h3 id="exporting-annotations">Exporting annotations</h3>
+<p><img src="./screenshot-export-bar.png" title="Export buttons" /></p>
+<p>Selected annotations can be exported to file or the clipboard, using the buttons “To File…” or “To Clipboard” (in the bottom export toolbar). A short-cut is available via the context-menu (right-click on a viewer annotation row).</p>
+<ul>
+<li><p><strong>Export format</strong></p>
+<ul>
+<li>TXT: Plain text</li>
+<li>HTML: HTML format</li>
+<li>CSV: CSV-format matrix table. Field separator can be changed under Settings &gt; Annotation Viewer.</li>
+<li>Markdown: MD-format matrix tables. Experimental, read also “Known issues”.</li>
+</ul></li>
+</ul>
+<p><a id="exportsortmodes"></a></p>
+<ul>
+<li><p><strong>Export sorting mode</strong> By default, exports use the GUI sorting order. This can be overridden by selecting a <a href="#sortmodes">sorting mode</a> in the bottom export toolbar.</p></li>
+<li><p><strong>Export to “Clipboard”</strong> Copies selected annotation data to the clipboard.</p></li>
+<li><p><strong>Export “to file…”</strong> Opens a file dialog for selecting an <em>export file</em>, and exports selected annotations to that file.</p></li>
+</ul>
+<p><em>Notes, PocketBooks: Highlights edited on PB devices using that device’s Notes app, may lose their page and highlight location data.</em></p>
+<h2 id="other-topics">Other Topics</h2>
+<h3 id="known-issues">Known Issues</h3>
+<h4 id="missing-page-numbers">Missing page numbers</h4>
+<p>Annotations from older PocketBook firmware versions, may miss page number information. The page column will then show “?”. Alternatives are being considered.</p>
+<h4 id="reader-disconnection-during-runningpending-operations">Reader disconnection during running/pending operations</h4>
+<p>Disconnection will not (yet) cancel running operations: generally some warning will be shown; file transfers and DB access tend to fail gracefully.</p>
+<h4 id="connecting-many-readers-at-once">Connecting many readers at once</h4>
+<p>Connecting multiple (supported) readers at once is still untested. Windows versions prior to 0.9.8. performed a full device scan upon detecting USB changes, and should be avoided in this case.</p>
+<p>If you can help test this, please contact the author(s). For extra safety, first disable “loading annotations” (under settings), <em>restart</em> the program, and then try (this avoids database access).</p>
+<p><a id="improvePerformance"></a></p>
+<h4 id="improving-program-performance">Improving program performance</h4>
+<p>With v0.9.7, program speed was improved markedly. If hard-pressed, these changes may improve the situation:</p>
+<ul>
+<li>Ensure the last (right-most) column is not stretched. If it is, right-click in the annotation viewer header, and select “reset columns”.</li>
+<li>increase the search delay to 1000ms or more (reduces interim searches)</li>
+<li>disable case-sensitive sorting (faster method)</li>
+<li>prefer “sort on date” (default annotation order)</li>
+<li>keep bookmarks hidden (reduces annotation count)</li>
+<li>use a local database mirror (reduces disk access time)</li>
+<li>use a filter preset of 6 months or less (reduces annotation count). The setting is retained between restarts.</li>
+</ul>
+<h4 id="markdown-export-issues-v0.10">Markdown export issues (v0.10+)</h4>
+<p>Given it’s general background (i.e. competing Markdown standards, especially w/r to tables; various extensions and Markdown converters), the Markdown export is likely to experience problems down the road.</p>
+<p>Known issues: - a single dollar sign in the booktitle (rare), may be seen as starting a math formula, breaking the table export. Ghostwriter ignores this, but Apostrophe inserts a <span> tag breaking the table.</p>
+<h4 id="linux-no-or-limited-debug-messages">Linux: no or limited debug messages</h4>
+<p>First, AVATeR only outputs debug messages when requested to do so from the CLI or GUI settings. Second, many distributions have blocked debug messages from being output, due to excessive default(!) debug messaging by applications.</p>
+<p>If AVATeR debug output is enabled, and it detects the OS has blocked debug messages, it will attempt to restore debug output. Alternatively, on Linux you can issue <code>export QT_LOGGING_RULES="*.debug=true;qt.*.debug=false</code> from the shell/terminal, to force debug messages to show. See also: https://stackoverflow.com/questions/30583577/qt-qdebug-not-working-with-qconsoleapplication-or-qapplication</p>
+<h4 id="windows-virtualcd-usb-detection-compatibility-0.12.1-and-lower">Windows: VirtualCD USB detection compatibility (0.12.1 and lower)</h4>
+<p>On Windows, the VirtualCD application (www.virtualcd-online.com) appears to modify drive letter assignment, which conflicts with detection of the drive letter. This situation is being investigated. Note v0.12.1 fixed a bug that made the same local mirror unavailable. v0.13 should show the device as unmounted, with the possible exception of VirtualCD having mounted a device on the same drive location.</p>
+<p>A temporary work-around is as follows (this assumes the drives are unused): configure your VirtualCD drive(s) to use drive letter(s) at least two ‘steps’ higher than the current ones (i.e. E: becomes G:), thereby leaving earlier drive letters available for Windows for mounting your USB e-reader. This settings can be modified as follows:</p>
+<p><img src="fix-virtualcd.png" /></p>
+<h4 id="minor-issues">Minor issues</h4>
+<ul>
+<li><p><strong>Scroll CPU spikes</strong> Mouse-scrolling annotations can show up in visual CPU monitors as a CPU spike; note however the used CPU time (i.e. duration) is very short.</p></li>
+<li><p><strong>Book metadata on PocketBooks</strong> For the time being, book metadata is read from the books.db file in order to keep things simple. Note external apps that change metadata may only target the explorer.db, explaining any discrepancies.</p></li>
+</ul>
+<hr />
+<h2 id="faq">FAQ</h2>
+<h3 id="enabling-debug-logging">Enabling debug logging</h3>
+<p>During operation, the program can report its status and any encountered errors at pre-defined points during operation. These messages are typically written to a text file, or ‘logged’, hence the term ‘logfile’ (or ‘debug’ file).</p>
+<p>When solving problems (so-called ‘debugging’), the logfile is an important diagnostic tool for the developers to find where problems occur. Often ‘logging’ is disabled by default, to reduce resource usage. Hence, you’ll likely first need to enable logging using the program settings. This is quite easy and discussed next.</p>
+<h5 id="enabling-logging">Enabling logging</h5>
+<p>To enable logging: - open the menu option “Main &gt; Settings”: here open the last tab “Advanced”: next to “Log debug messages”, select “Log to file”. The filepath shown below the selector is the logfile location. Restart the program to enable logging (as prompted by the pop-up). - advanced users may enable this from the CLI/shell (consult the “–help” information).</p>
+<h5 id="viewing-the-logfile">Viewing the logfile</h5>
+<p>After enabling logging to file, and restarting, recent AVATeR versions will show a new “debug” menu. Open it, and select the option “open debug logfile” to view the logfile. Save it to a new place, and send the file to the developers.</p>
+<h3 id="reader-device-is-not-recognized-or-shown">Reader device is not recognized or shown</h3>
+<p>AVATeR expects the OS (or you) to have mounted any supported e-readers, making the files accessible. Otherwise, the program will (silently) ignore the e-reader. (Future versions may indicate unmounted devices.)</p>
+<p>Also ensure your device is supported by AVATeR. Newly introduced devices may use a new (USB) vendor ID, which must first be added to the program.</p>
+<p><em>Note: some Linux distributions will show filesystems, but only mount them upon user (UI) action/access.</em></p>
+<p>Steps you may try in addition are listed below. If the problem persists, enable debugging, inspect the program logfile and/or contact the author(s).</p>
+<ul>
+<li>(v0.9.8 and older): on slow/older machines, increase the “mountDelay” time under “settings &gt; advanced”.</li>
+<li>try reconnecting the device (avoid quick successive re-connection)</li>
+<li>turn the device off (hold power-button) and on</li>
+<li>for Pocketbooks: disable wifi</li>
+<li>try another USB port</li>
+<li>try another USB cable</li>
+<li>restart the computer at least once</li>
+</ul>
+<h3 id="columns-are-compressed-or-text-is-invisible">Columns are compressed or text is invisible</h3>
+<p>This seems to occurs when saving column-sizes for an empty table; it should normally not occur.</p>
+<p>To fix: right-click the annotation viewer header row (with “Author”, “Title”, etc.) and select “Reset to Default”.</p>
+<p>In case that fails:</p>
+<ol type="1">
+<li>Stop the program, or else the ‘faulty’ entries will get saved again.</li>
+<li>Locate the avater.conf file (see start of the logfile)</li>
+<li>Remove any (at least two) lines from avater.conf labeled “table_columnsettings”: one below the “[viewer]” line, and the other below the “[uploader]” entry.</li>
+</ol>
+<h3 id="persistent-crash-directly-on-start-up-v0.10">Persistent crash directly on start-up (&lt;v0.10)</h3>
+<p>Pre v0.10, a rare crash could be caused when switching between Qt5/6 versions. As of v0.10, column settings for either Qt version are stored separately. For older version, fix this by removing both “table_columnsettings” entries from the preference file: see the previous FAQ item for this.</p>
+<h3 id="is-the-device-database-safe">Is the device data(base) safe?</h3>
+<p>This program’s <strong>read-only functions</strong> should not be able to cause damage. AVATeR doesn’t continuously access DBs, importing data instead, at the cost of some memory.</p>
+<p>Functions that <strong>modify</strong> the device’s DBs do carry an inherent risk: these are the “merge/fix annotations” and “restore reading progress”. To minimize risks, consider the following points:</p>
+<ol type="1">
+<li><p>Preferably make a DB backup before using these tools (as prompted).</p></li>
+<li><p>Ensure the device and USB cable are undisturbed during operations (with worn out USB ports even a nudge can cause a temporary disconnection).</p></li>
+</ol>
+<p>Do note the SQLite database (DB) commonly used by (embedded appliances such as) e-readers is a robust DB format, widely used and well tested.</p>
+<p>Lastly, AVATeR is not exempt from programming mistakes and/or compatibility problems, such as database changes after firmware updates. Generally, such operations will fail early (and safely), and additional checks are in development.</p>
+<hr />
+<h3 id="appendix-pocketbook-recovery-details">Appendix: PocketBook recovery details</h3>
+<p>Some topics will come up repeatedly.</p>
+<p><strong>Note we provide no support for, and assume no responsibility for, trying out the discussed recovery aspects.</strong></p>
+<h5 id="changing-configuration-files-and-settings-directly">Changing configuration files and settings directly</h5>
+<p>The various PB configuration settings files (.cfg, .dat, etc) cannot directly be modified. The cause is a hash signature, prompting the reader to revert to the backup file.</p>
+<p>In case of problems, deletion can be considered (also remove the “.back” copy), but this rarely solves problems.</p>
+<h5 id="manual-recovery-of-fonts-dictionaries-and-apps">Manual recovery of fonts, dictionaries and apps</h5>
+<p>Fonts, dictionaries and apps may be restored by loading a backup archive with AVATeR’s “Send files” tool.</p>
+<p>The backup archives produced by this program are standard .zip archives, so any .zip extraction utility should be able to extract the files. Files are stored in their original (device-relative) paths. These may change however between firmware versions.</p>
+<h5 id="manually-restoring-database-files">Manually restoring database files</h5>
+<p>Restoring database files is risky and should be avoided. However, if devices have identical firmware and e-book file paths, a chance of success exists. Often there is little to lose anyway: at worst the device can be reset again.</p>
+<h6 id="database-types">Database types</h6>
+<p>For PocketBooks, the main DBs of interest are:</p>
+<ul>
+<li>explorer-3.db: e-book metadata</li>
+<li>books.db: bookmark/annotations, with some metadata</li>
+</ul>
+<h6 id="caveats">Caveats</h6>
+<p>Consider the sources of complications when replacing databases:</p>
+<ul>
+<li><p><strong>firmware updates</strong>: may change the database layout between versions. A manufacturer may(!) account for this during access or updates, but cannot always do so.</p></li>
+<li><p><strong>ebook file changes</strong>: these change the file’s ‘hash’, used as a identification help. Upon change, a book file will be perceived as a ‘new’ book, thus losing it’s link to previously associated reading progress and annotation data.</p>
+<ul>
+<li>Causes of file changes include: replacing the cover or internal (meta)data</li>
+<li>Some readers use the filename and filelocation to re-identify files, as neither are intrinsic to the file itself (and thus the hash). Changing memory cards (and its card ID) may complicate this</li>
+<li>Lastly, the filedate(s) are also not intrinsic to the file, but are sometimes used in the hash for (partial) identification.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="and-more">And more…</h2>
+<h3 id="historychangelogroadmap">History/changelog/roadmap</h3>
+<p>See changelog.txt</p>
+<p>Originally this was a set of tools for PB readers. The annotation HTML exporter was made interactive, and made the UI centerpiece.</p>
+<p>We aim to provide a basic set of tools, focused on being generic and adaptable to new situations. Content can be best managed by the e-reading device or specialized programs.</p>
+<p>The current implementation integrates several components: an underlying reader management layer (using standard library functions, and Qt SQL functions), a Qt based mainwindow, with an integrated annotation viewer, and several tools. Future versions may see these components being split out.</p>
+<hr />
+<h3 id="donationpurchasing">Donation/purchasing</h3>
+<p>At the moment, you are encouraged to donate if you are able to do so. This may change in future versions, if there are valid reasons (support load, etc.).</p>
+<hr />
+<h3 id="privacy">Privacy</h3>
+<ul>
+<li><p><strong>Transmitted data</strong>. During the optional update check, only the <strong>program platform is communicated by means of the URL</strong>.</p>
+<ul>
+<li>The updater requests permission for checking on the first program startup.<br />
+</li>
+<li>The update retrieves only a version number; if an update exists, a question dialog will allow you to open the download page in your default webbrowser.</li>
+</ul></li>
+<li><p><strong>Program configuration files and logfiles</strong> Configuration files may contain a device’s serial, once a ‘devicelabel’ or ‘local DB mirror’ has been configured. In addition, the serial of the last used device is stored. <em>Note: the serial can be ‘hashed’, but this gains little.</em></p></li>
+<li><p><strong>Program Backup files</strong> These are stored locally on your device. Largely self-explanatory: depending on the device, the archived files may include references to document title/author(s), genres, highlighted texts and user notes, if any.</p></li>
+</ul>
+<hr />
+<h3 id="support-bugs-feature-requests-etc">Support / Bugs / Feature requests / etc</h3>
+<p>Please see the website for more information.</p>
+<hr />
+<h3 id="copyright-license">Copyright / License</h3>
+<p>Copyright (C) 2021-2023+ Authors (See “help &gt; about” or authors.txt)</p>
+<p>This software is provided ‘as-is’, without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.</p>
+</body>
+</html>

@@ -1,0 +1,12 @@
+0.9.8 May 28th
+- New: show highlight colors
+- New: sticky annotation selection option
+
+- Improved: row resizing when scrolling
+- Improved: Windows USB device detection
+- Improved: Replaced USB/mount related delays with retry loops
+- Improved: Local mirror handles removal via sync
+
+- Fixed: Removed deadlock situation with disabled device monitor
+- Fixed: URLs for website/updating
+- Various minor changes/fixes

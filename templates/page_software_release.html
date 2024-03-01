@@ -1,0 +1,98 @@
+{# This Template Shows the Individual Blog Posts#}
+
+{% import "macros/syncoda_macros.html" as syncoda_macros %}
+
+{% extends "page.html" %}
+
+{%- block content %}
+    <article>
+    {{- macros::title_post(page=page, config=config) }}
+
+    {%- if config.extra.meta_post.position %}
+    {%- if config.extra.meta_post.position == "top" or config.extra.meta_post.position == "both" %}
+    {{- macros::meta_post(page=page, config=config) }}
+    {%- endif %}{%- endif %}
+
+	{{ syncoda_macros::check_latest_version(section="software/avater/releases/_index.md", currentpage=page) }}
+
+	{{ page.summary | safe }}
+
+	{% if page.extra.screenshots %}
+		{% for screenshot in page.extra.screenshots %} 
+			<img alt="AVATeR screenshot" src={{ screenshot }} />
+			{# sliding images todo #}
+			{% if loop.index0 == 0 %}
+				{% break %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+
+	<h2 id="changelog">Changelog</h2>
+	<p>Changes are listed below. The <a href="/files/avater/changelog.txt">Full changelog (.txt)</a> includes previous versions.</p>
+	{%- set file_changelog = page.path ~ "changelog.txt" -%}
+	<pre class="z-code"><code>{{- load_data(path=file_changelog, format="plain") -}}</code></pre>
+
+	<h2 id="downloads">Downloads</h2>
+	<p>Downloads are listed below. 
+
+	<h3 id="requirements">Requirements</h3>
+	<p>Any special remarks are listed below using colors. Also see <a href="/software/avater/pages/requirements/">System requirements</a> and <a href="/software/avater/pages/compatibility">Device compatibility</a>.</p>
+
+	{% set remarks = page.extra.remarks | default(value="") %}
+	{%- if remarks -%}{{ syncoda_macros::print_download_remarks(remarks=remarks) }}{%- endif -%}
+
+	{%- set file_requirements = page.path ~ "requirements.txt" -%}
+	<pre>{{- load_data(path=file_requirements, format="plain", required=false) | default(value="No changes") -}}</pre>
+
+	{{ syncoda_macros::check_latest_version(section="software/avater/releases/_index.md", currentpage=page) }}
+	{{ syncoda_macros::assets2downloads(page=page) }}
+	<p>&nbsp;</p>
+	<p style="text-align: center;">***</p>
+	<p>&nbsp;</p>
+
+{{ page.content | safe }}
+
+    {%- if config.extra.meta_post.position %}
+    {%- if config.extra.meta_post.position == "bottom" or config.extra.meta_post.position == "both" %}
+    {{- macros::meta_post(page=page, config=config) }}
+    {%- endif %}{%- endif %}
+
+    {%- block page_footer %}
+    {{- macros::footer(page=page, config=config) }}
+    {%- endblock page_footer %}
+
+    {%- block comments_body %}
+    {%- if config.extra.comments.hyvor %}
+    <hyvor-talk-comments website-id={{ config.extra.comments.hyvor }} page-id={{ page.slug }}{%- if config.extra.comments.hyvorcolor %} colors="{{ config.extra.comments.hyvorcolor }}"{%- endif %}></hyvor-talk-comments>
+    {%- endif %}
+    {%- endblock comments_body %}
+    </article>
+    {%- block toc %}
+    {%- if config.extra.toc | default(value=true) %}
+    {%- if page.extra.toc %}
+    {%- set toc = page.toc %}
+    {%- endif %}
+    {%- if toc %}
+
+    <div class="sblock">
+      <div class="blockdiv sticky">
+        <a class="b s150" href="#">{{ macros::translate(key="Index", default="Index", i18n=i18n) }}</a>
+        {%- for h in toc %}
+        <div>
+          <a href="#{{h.id | safe}}">{{ h.title }}</a>
+        </div>
+        {%- if h.children %}
+        {%- for h2 in h.children %}
+        <div class="hpad">
+          <a href="#{{h2.id | safe}}"><small>- {{ h2.title }}</small></a>
+        </div>
+        {%- endfor %}
+        {%- endif %}
+        {%- endfor %}
+      </div>
+    </div>
+    {%- endif %}
+    {%- endif %}
+    {%- endblock toc %}
+
+{%- endblock content %}

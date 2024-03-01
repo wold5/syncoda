@@ -1,0 +1,13 @@
+Changelog v0.11 Oct 30th 2022
+- New release packaging (Linux .deb and .rpm; Windows .zip and .exe installer)
+- Fixed: after viewer update (row addition/removal), re-apply filters
+- Fixed: also reload annotations when annotation count remains the same
+- Fixed: only rescan unmounted devices upon device monitor changes (Linux mainly)
+- Internal: Changed and extended highlight/note location data parsing (WIP)
+- Hide empty devicelabel
+
+- Linux (Fedora): output CLI configuration messages using printf instead of as debug messages
+- Linux: fixed changelog location
+- Linux: added manpage
+- Internal: reworked "connected" check logic
+- Show update nag screen every 6 months if automatic updates are disabled

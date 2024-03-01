@@ -1,0 +1,20 @@
+0.14 Januari 3rd 2024
+- fixed HTML export RGB colorcodes
+- fixed HTML export table borders
+- fixed exporter deleted annotation markup
+- fixed checkDB warning on local DB errors
+- changed: sort-by-date is default again
+
+- added Kobo and Sony annotation support
+- added Kobo and Sony Local Mirror support (Sony limited to one storage)
+- let checkdb tool report warnings separate from errors
+- update check now enforces/checks for HTTPS/SSL
+
+Manual backup/Sony
+- fixed: manual backup file count report (ignores directories)
+- fixed: Sony backup now includes /Sony_Reader/ media subfolder
+- added: Sony database backup now includes note/drawing files
+- changed: new method to in/exclude system directories
+
+- Windows: updated Qt to 6.6.1 and Libzip to 1.10.1
+- Minor fixes

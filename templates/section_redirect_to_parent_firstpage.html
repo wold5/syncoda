@@ -1,0 +1,14 @@
+{%- import "macros/syncoda_macros.html" as syncoda_macros -%}
+{%- set_global parent_section = section.ancestors | last -%}
+{%- set redirect_url = syncoda_macros::get_section_first_page_path(path=parent_section) -%}
+<!doctype html>
+<header>
+<meta charset="utf-8">
+<link rel="canonical" href="{{ redirect_url | safe }}">
+<link rel="stylesheet" href="/abridge.css" /><!-- manually specified, no base URL -->
+<meta http-equiv="refresh" content="0; url={{ redirect_url | safe }}">
+<title>Redirect to latest</title>
+</header>
+<body>
+<p><a href="{{ redirect_url | safe }}">Click here</a> to be redirected to the latest release.</p>
+</body>

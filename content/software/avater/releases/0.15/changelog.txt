@@ -1,0 +1,23 @@
+0.15 February 10th 2024
+- fixed: exporter image embedding (removed redundant quote)
+- fixed: exporter HTML, convert linebreaks
+- fixed: exporter HTML, external image tag
+- fixed: exporter HTML, various w3c compliance fixes
+- fixed: exporter Markdown, escape additional characters (WIP)
+
+- fixed: top-align metadata for long annotations
+- fixed: set uncategorized annotations to other category
+- fixed: flag empty drawings as deleted
+- fixed: hide "open archive" option (unreleased feature)
+
+- added: annotation type/flag filter
+- added: export row media to clipboard HTML (experimental)
+- added/improved: regex filtering for title/author search fields
+- added: PB translation support (context/dictionary)
+- added: viewer option for showing all columns
+
+- changed: flags column (was delete)
+- changed: keep text filters on device change (toggleable)
+- changed: sort devices by vendor
+- changed: extra checks for PB annotation import
+- minor internal improvements (toggling case-sensitive, etc.)

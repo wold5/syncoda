@@ -1,0 +1,30 @@
+0.13.2 October 6th 2023
+- fixed: enabling LM on a fresh install no longer requires rescanning devices
+- fixed: VirtualCD compatibility issue
+- fixed: removed unnecessary wait times on startup/manual scans
+- added: device information panel tool
+- changed: start device monitor before startup device scan
+
+Kobo/Sony readers
+- added: detect Kobo/Sony readers (no annotation support)
+- added: enable manual backup tool for Kobo readers (WIP)
+- added: enable uploading tool for Kobo readers (fonts/dicts) (WIP)
+- fixed: toggling manual backup items for non-PB readers
+
+Minor changes
+- fixed: missing device storage icon (main card only)
+- added: get device storage details (size, VSN/UUID, etc.)
+- added: checkDB now shows a results window
+- added: store more LocalMirror device details (model IDs) (to activate,
+disable and re-enable a LM)
+- added: store device ID hex values in manual backup
+- added: show debuglog in textviewer window
+- added: show wait cursor during checkDB run
+- Windows: updated Qt6 to 6.5.3
+
+USBscanner(s)
+- changed: reworked/cleanup WIN32 USB related functions
+- changed: reworked internal event messaging structures
+- changed: monitor rejects incompatible devices earlier
+- fixed: linux instance_id handling
+- various improvements

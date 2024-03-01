@@ -1,0 +1,18 @@
+0.12.1 Jan 21th 2023 (test)
+- Fixed Windows: check LM mountpath. Fixes local mirror failing to load.
+
+v0.12 Jan 12th 2023
+- Improved restoring window size and position for multiple monitor setups
+- Added: display (resized) image annotations ('screenshots')
+- Fixed: show linebreaks correctly after double clicking a highlight
+- Added: substitute empty booktitle with filename for viewer/export
+- Added: filename column in viewer
+- Added: support PocketBook HD/HD2 e-readers (firmware 5.x)
+- Internal: Reworked color functions
+
+Exporter
+- Added: export or embed images/media (toggle embedding under settings > annotation viewer)
+- Added: include filename in export
+- Fixed: escape linebreaks for CSV export (without worked, but was complicated)
+- Added: optionally include BOM header for UTF textfiles (toggle under settings > annotation viewer)
+- Added: CSV export adds Filename, IDHash and media related columns

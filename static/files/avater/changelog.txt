@@ -1,0 +1,294 @@
+0.15 February 10th 2024
+- fixed: exporter image embedding (removed redundant quote)
+- fixed: exporter HTML, convert linebreaks
+- fixed: exporter HTML, external image tag
+- fixed: exporter HTML, various w3c compliance fixes
+- fixed: exporter Markdown, escape additional characters (WIP)
+
+- fixed: top-align metadata for long annotations
+- fixed: set uncategorized annotations to other category
+- fixed: flag empty drawings as deleted
+- fixed: hide "open archive" option (unreleased feature)
+
+- added: annotation type/flag filter
+- added: export row media to clipboard HTML (experimental)
+- added/improved: regex filtering for title/author search fields
+- added: PB translation support (context/dictionary)
+- added: viewer option for showing all columns
+
+- changed: flags column (was delete)
+- changed: keep text filters on device change (toggleable)
+- changed: sort devices by vendor
+- changed: extra checks for PB annotation import
+- minor internal improvements (toggling case-sensitive, etc.)
+
+0.14 January 3rd 2024
+- fixed HTML export RGB colorcodes
+- fixed HTML export table borders
+- fixed exporter deleted annotation markup
+- fixed checkDB warning on local DB errors
+- changed: sort-by-date is default again
+
+- added Kobo and Sony annotation support
+- added Kobo and Sony Local Mirror support (Sony limited to one storage)
+- let checkdb tool report warnings separate from errors
+- update check now enforces/checks for HTTPS/SSL
+
+Manual backup/Sony
+- fixed: manual backup file count report (ignores directories)
+- fixed: Sony backup now includes /Sony_Reader/ media subfolder
+- added: Sony database backup now includes note/drawing files
+
+- Windows: updated Qt to 6.6.1 and Libzip to 1.10.1
+- Minor fixes
+
+
+0.13.2 October 6th 2023
+- fixed: enabling LM on a fresh install no longer requires rescanning devices
+- fixed: VirtualCD compatibility issue
+- fixed: removed unnecessary wait times on startup/manual scans
+- added: device information panel tool
+- changed: start device monitor before startup device scan
+
+Kobo/Sony readers
+- added: detect Kobo/Sony readers (no annotation support)
+- added: enable manual backup tool for Kobo readers (WIP)
+- added: enable uploading tool for Kobo readers (fonts/dicts) (WIP)
+- fixed: toggling manual backup items for non-PB readers
+
+Minor changes
+- fixed: missing device storage icon (main card only)
+- added: get device storage details (size, VSN/UUID, etc.)
+- added: checkDB now shows a results window
+- added: store more LocalMirror device details (model IDs) (to activate,
+disable and re-enable a LM)
+- added: store device ID hex values in manual backup comment
+- added: show debuglog in textviewer window
+- added: show wait cursor during checkDB run
+- Windows: updated Qt6 to 6.5.3
+
+USBscanner(s)
+- changed: reworked/cleanup WIN32 USB related functions
+- changed: reworked internal event messaging structures
+- changed: monitor rejects incompatible devices earlier
+- fixed: linux instance_id handling
+- various improvements
+
+
+0.13.1 June 28th 2023
+- fixed: toggling localmirror state triggers device/LM rescan + reworked
+- fixed: minimum date filter now accounts for annotations with dates older than 1st annotation
+- fixed: resize portrait annotation image width if it exceeds column width
+- fixed: uploader uses correct storage ids
+
+- added: sort by annotation ID option
+- added: Linux releases for Fedora 37 and Debian 12 (Qt 6.5 and 6.4 respectively)
+- updated: Windows Qt to 6.5.1 (possibly fixes Win11 0x0000005c issue)
+
+- added: additional storage state icons
+- changed: allow overwriting LM DBs using older dated ones
+- changed: shortened window title for Window Managers
+
+
+0.13 May 5th 2023
+- Changed: also sync LocalMirror on DB size difference
+
+- Added: Report (partially) unmounted storage devices in GUI
+- Added: Tools warn on partially mounted e-readers
+- Added: Ignore duplicate device arrival signal (user-configurable)
+- Added: on enabling LocalMirror, ask user to confirm switch to LM DB.
+
+- Fixed (rare) warning on localmirror sync, when a modified annotation db was reloaded with the same row count
+- Fixed: Hardened DB metadata related functions
+- Fixed: Increased delay for "clear filters and show this row"
+- Fixed Windows: manual backup location not set on fresh install
+- Fixed: removed spurious warning on empty annotation row
+- Fixed: Remove checkDB warning for not found databases on removed storages
+
+Internal
+- Changed: Bulk process reader arrivals before signaling
+- Simplified signaling for devices and profiles/sources
+- Reworked localmirror sync (utilise internal metadata instead of filecopy outcome)
+- Removed prefs dependencies from ReaderManager
+
+
+0.12.1 Jan 21th 2023 (test)
+- Fixed Windows: check LM mountpath. Fixes local mirror failing to load.
+
+
+0.12 Jan 12th 2023
+- Improved restoring window size and position for multiple monitor setups
+- Added: display (resized) image annotations ('screenshots')
+- Fixed: show linebreaks correctly after double clicking a highlight
+- Added: substitute empty booktitle with filename for viewer/export
+- Added: filename column in viewer
+- Added: support PocketBook HD/HD2 e-readers (firmware 5.x)
+- Internal: Reworked color functions
+
+Exporter
+- Added: export or embed images/media (toggle embedding under settings > annotation viewer)
+- Added: include filename in export
+- Fixed: escape linebreaks for CSV export (without worked, but was complicated)
+- Added: optionally include BOM header for UTF textfiles (toggle under settings > annotation viewer)
+- Added: CSV export adds Filename, IDHash and media related columns
+
+
+0.11.1 Dec 7th 2022 (Windows-only)
+- Windows: fixed crash when removing last reader without localmirror
+- Windows: fixed rare error in USB related function
+
+
+0.11 Oct 30th 2022
+- New release packaging (Linux .deb and .rpm; Windows .zip and .exe installer)
+- Fixed: after viewer update (row addition/removal), re-apply filters
+- Fixed: also reload annotations when annotation count remains the same
+- Fixed: only rescan unmounted devices upon device monitor changes (Linux mainly)
+- Internal: Changed and extended highlight/note location data parsing (WIP)
+- Hide empty devicelabel
+
+- Linux (Fedora): output CLI configuration messages using printf instead of as debug messages
+- Linux: fixed changelog location
+- Linux: added manpage
+- Internal: reworked "connected" check logic
+- Show update nag screen every 6 months if automatic updates are disabled
+
+0.10 Aug 31th 2022
+- Added: Restore search settings for the last used device on startup (if present)
+- Added: Markdown annotation export (experimental)
+- Added: Show deleted annotations (and export if shown)
+- Added: PB profile selection possible from top-menu
+- Added: show basic annotation count (current/total)
+
+- Changed: Store Qt5/6 column settings separately
+Switching between Qt versions could induce a crash due to unknown causes (not UTF-8 related). As such you may need to re-configure your column sizes.
+- Changed: After filtering on title from the context-menu, don't set the title-page sorting mode
+- Changed: increased attempts for Windows USB-related loops
+- Changed: Rely on devices.conf group serial ID again (Reverse compatibility is maintained)
+
+Viewer related
+- Fixed: show missing page numbers as "?"
+- Fixed: missing page number for certain bookmarks
+- Fixed: toggling case-sensitive sort works now for all sorting types (including custom sorting)
+- Fixed: allow custom sorting on columns after having selected a sort mode
+- Fixed: improved setting showing bookmarks/deleted annotations from UI and at model creation
+
+- Fixed: Better handling of model refreshes due to device updates
+- Fixed: "Reload annotations" menu-option better handles DB changes
+- Fixed: Minor Qt model errors
+
+Other
+- Fixed: GUI removal for e-reader or localmirror
+- Fixed: copy localmirror if enabled but none was present on device arrival
+- Fixed: if localmirror was disabled remotely (via devices.conf), remove and toggle UI elements
+
+- Fixed for Fedora: Qt UI fixes; output all debug messages
+- Fixed for Windows: issue with closing uploader progressdialog
+- Improved: improved profile rescans
+- More, including docs...
+
+
+0.9.9 Jul 22th
+- Improved: HTML export (layout, colors)
+- Improved: CSV export (added variables)
+- Improved: set debugmode from GUI, added logfile option to CLI
+- Added: Raw SQL export option
+- Windows: updated Qt libraries
+
+0.9.8.3 Jun 20th
+- Fixed: Show creation date for annotations
+- Fixed: Correct raw page numbers
+- Linux fix: enforce UTF-8 for config files
+- Fixed: Debug display UTF-8 issues
+- Changed: write logfile to OS temporary location
+- Windows: updated zlib and libzip libraries
+- Stick to C++17 spec for now
+- Minor changes
+
+0.9.8 May 28th
+- New: show highlight colors
+- New: sticky annotation selection option
+
+- Improved: row resizing when scrolling
+- Improved: Windows USB device detection
+- Improved: Replaced USB/mount related delays with retry loops
+- Improved: Local mirror handles removal via sync
+
+- Fixed: Removed deadlock situation with disabled device monitor
+- Fixed: URLs for website/updating
+- Various minor changes/fixes
+
+0.9.7 Mar 18th
+- Faster annotation importing
+- Faster row resizing
+- Stop stretching the last column
+- Various fixes/changes
+
+0.9.6 Mar 13th
+- Improved search filter responsiveness
+- Added filter presets to date/page filter
+- Sorting fixes + added custom sort mode indicator
+- Improved saving column sizes
+- Various fixes/changes
+
+0.9.5 Mar 1st 2022 (first public release)
+- fixed devicelabel issue with unmirrored device
+- skip mount delay on startup
+- fixed switching to localmirror after enabling
+
+0.9.4 Feb 25th 2022
+- fixed changing datadir in settings
+- fixed config text encoding issue with serial keys
+- improved data sharing in key points
+- various fixes
+
+0.9.3 Feb 23th 2022
+- improved HTML export formatting
+- added help viewer and buttons
+- added debug logging options
+- added checking/sanitizing of input values (backuplabel, preferences)
+- various fixes
+
+0.9.2 Jan 31th 2022
+- extended MergeFix with UI dialog
+- Added device counter
+- various fixes
+
+0.9.1
+- Added exporter sorting choice
+- Improved USB ID handling
+- various fixes
+
+0.9.0
+- Improved handling of (dis)connection/disconnected devices
+- Implemented archive loader (WIP)
+- various fixes
+
+0.8.0
+- Improved annotation filter and export routines
+- various improvements/fixes
+
+0.7.0
+- Reworked filesystem to use STD
+- Added context menus
+- various improvements/fixes
+
+0.6.0
+- First working Windows version with USB detection
+
+0.5.0
+- Implemented multiple reader support
+- Implemented USB detection (linux)
+
+0.4.0
+- Integrated Annotation Viewer in GUI
+
+0.3.0
+- Added drive-based device selector (main only)
+
+0.2.0
+- Implemented tool-button GUI window (Linux)
+- Ported Annotation Merge/Fix tool
+
+0.1.0 16th July 2021
+- First build
+- Ported backup routine and annotation HTML exporter

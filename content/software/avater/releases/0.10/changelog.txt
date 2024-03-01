@@ -1,0 +1,33 @@
+0.10 Aug 31th 2022
+- Added: Restore search settings for the last used device on startup (if present)
+- Added: Markdown annotation export (experimental)
+- Added: Show deleted annotations (and export if shown)
+- Added: PB profile selection possible from top-menu
+- Added: show basic annotation count (current/total)
+
+- Changed: Store Qt5/6 column settings separately
+Switching between Qt versions could induce a crash due to unknown causes (not UTF-8 related). As such you may need to re-configure your column sizes.
+- Changed: After filtering on title from the context-menu, don't set the title-page sorting mode
+- Changed: increased attempts for Windows USB-related loops
+- Changed: Rely on devices.conf group serial ID again (Reverse compatibility is maintained)
+
+Viewer related
+- Fixed: show missing page numbers as "?"
+- Fixed: missing page number for certain bookmarks
+- Fixed: toggling case-sensitive sort works now for all sorting types (including custom sorting)
+- Fixed: allow custom sorting on columns after having selected a sort mode
+- Fixed: improved setting showing bookmarks/deleted annotations from UI and at model creation
+
+- Fixed: Better handling of model refreshes due to device updates
+- Fixed: "Reload annotations" menu-option better handles DB changes
+- Fixed: Minor Qt model errors
+
+Other
+- Fixed: GUI removal for e-reader or localmirror
+- Fixed: copy localmirror if enabled but none was present on device arrival
+- Fixed: if localmirror was disabled remotely (via devices.conf), remove and toggle UI elements
+
+- Fixed for Fedora: Qt UI fixes; output all debug messages
+- Fixed for Windows: issue with closing uploader progressdialog
+- Improved: improved profile rescans
+- More, including docs...

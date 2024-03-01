@@ -1,0 +1,12 @@
+0.9.7 Mar 18th
+- Faster annotation importing
+- Faster row resizing
+- Stop stretching the last column
+- Various fixes/changes
+
+0.9.6 Mar 13th
+- Improved search filter responsiveness
+- Added filter presets to date/page filter
+- Sorting fixes + added custom sort mode indicator
+- Improved saving column sizes
+- Various fixes/changes

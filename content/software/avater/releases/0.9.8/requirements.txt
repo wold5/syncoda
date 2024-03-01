@@ -1,0 +1,1 @@
+- Windows: Windows 8/10/11+ (Win7 may work)

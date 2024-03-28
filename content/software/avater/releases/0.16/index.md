@@ -10,19 +10,16 @@ tags = ["AVATeR"]
 
 [extra]
 toc = true
+screenshots = ["avater-screenshot-0.15-1.png"]
 
 +++
 [AVATeR](/software/avater/) v0.16 
 
 <!-- more -->
 
-NEED TO USE NEWER TEMPLATE
-
-![AVATeR screenshot](avater-screenshot-0.15-1.png)
 
 
-## Changelog
-{{ includeAssetChangelog(filename="changelog.txt") }}
+
 
 ## Details
 
@@ -51,21 +48,6 @@ First are some additional internal improvents of the backup tool. Some are imple
 <!--
 Lastly, the Debian 10 Buster release may be scrapped. The intent is to move to C++ 20 for technical improvements (compile time mostly, using modules) and its unclear if it is properly supported.
 -->
-
-## Downloads
-
-### Requirements
-<span style="background-color: green">&nbsp;&nbsp;</span> 
-Requirements not changed.
-
-- Windows: Windows 10/11+
-- Linux Redhat: Fedora WS 35 (glibc 2.34, libzip 1.6, Qt5); Fedora 38 (glibc 2.36, Qt6)
-- Debian: Debian Bookworm (~Ubuntu 22+), Bullseye/standard (~20+), Buster/compatible (~18-19)
-
-[System requirements](/software/avater/pages/requirements/) | [Device compatibility](/software/avater/pages/compatibility)
-
-
-{{ assets2downloads() }}
 
 \
 [^1]: This can be configured when making such an annotation, using the hamburger menu.

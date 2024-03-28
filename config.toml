@@ -4,7 +4,7 @@ base_url = "https://www.syncoda.nl"
 # Also set index_format = "elasticlunr_javascript", and in [extra] uglyurls = true, integrity = false, js_bundle = false
 
 title = "syncoda.nl"
-description = "Personal website covering software development efforts, involving mainly data or graphics."
+description = "Website covering software development efforts, involving mainly e-reading, data and graphics."
 theme = "abridge"
 
 default_language = "en"
@@ -74,10 +74,10 @@ taxonomies = [
 ###############################################################################
 
 menu = [
-    {url = "/posts/", name = "posts", slash = true, blank = false},
-	{url = "/software/", name = "software", slash = true, blank = false},
-	{url = "/about/", name = "about", slash = true, blank = false},
-    {url = "/tags/", name = "tags", slash = true, blank = false},
+    {url = "posts", name = "Posts", slash = true, blank = false},
+	{url = "software", name = "Software", slash = true, blank = false},
+	{url = "about", name = "About", slash = true, blank = false},
+    {url = "tags", name = "Tags", slash = true, blank = false},
 ]
 menu_footer = [
     {url = "about", name = "About", slash = true, blank = false},
@@ -103,7 +103,7 @@ footer_credit = true
 #logo = { file="logo.svg", width="32", height="32", alt="Abridge", text="bridge" }
 logo = { file="logo.png", alt="syncoda.nl", text=""}
 #textlogo = '<font color="#f90">A</font>bridge'
-textlogo = 'syncoda.nl'
+#textlogo = 'syncoda.nl'
 
 sitedesc = false # enables or disables the display of the site description below the logo.
 headhr = false # show or hide horizontal rule below header

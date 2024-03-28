@@ -19,7 +19,7 @@ The macros used on this website (Syncoda.nl) are briefly presented. You may cons
 ![](BASIC-randomvar.png)
 
 Note:
-- shorter macros are included - latest versions and others can be accessed via Github (soon). These are included here for demonstrative/learning purposes. For a '80s BASIC vibe, type them over manually ;)
+- shorter macros are included - latest versions and others can be accessed via [github](https://github.com/wold5/syncoda/). These are included here for demonstrative/learning purposes. For a '80s BASIC vibe, type them over manually ;)
 - indentation is used: this can be problematic with templates, for macros with whitespace control, this matters less
 - sometimes inline CSS is used, prioritizing portability and re-use. Visual styling aims to be solely functional and universal
 - translation support will be improved halfway 2024

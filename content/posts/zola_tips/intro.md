@@ -16,7 +16,7 @@ series = "Zola"
 +++
 
 
-This series discusses the _internal_ Zola SSG setup used for this website, with an emphasis on the software pages. The (design) theme used isn't discussed ([Abridge](https://github.com/Jieiku/abridge/)). Parts of this series may prove useful, or jump start development of a website.
+This series discusses the _internal_ Zola SSG setup used for this website, with an emphasis on the software pages. The (design) theme used isn't discussed ([Abridge](https://github.com/Jieiku/abridge/)). Parts of this series may prove useful, or jump start development of a website. The site source is available on [github](https://github.com/wold5/syncoda/).
 <!-- more -->
 The series is aimed at beginning to intermediate Zola users, that have some familiarity with Zola - experienced users may skip most (if not all) topics. A brief beginners tutorial is provided in the [Zola docs](https://www.getzola.org/documentation/getting-started/overview/).
 

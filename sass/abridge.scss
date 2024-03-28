@@ -3,15 +3,17 @@
   /// The things your less likely to need to override have been commented out.
 
   /// Enable a centered viewport for <header>, <main>, <footer> inside <body>
-  /// Fluid layout until a defined size, then becomes centered viewport
+  /// Fluid layout until a defined size, then becomes centered viewport.
   //$enable-maxwidth: true,
-  $mw: 75%,// max-width
+  $mw: 70%,// max-width
   //$mb: 1200px,// value at which to switch from fluid layout to max-width
 
   $abridgeMode: "switcher",//valid values: switcher, auto, dark, light
   $syntax-mode: "auto",// Force syntax mode: auto, dark, light
+  $switcherDefault: "dark",// default nojs switcher mode: dark, light (make sure to also set js_switcher_default in config.toml)
 
   $color: "orange",// color template to use/override: orange, blue, blueshade
+
   $color-syntax: "abridge",// syntax color template to use/override: abridge,
   $syntax: true,//syntax highlighting for Code Blocks.
 
@@ -24,6 +26,7 @@
   $icon-element: false,
   $icon-matrix: false,
   $icon-buymeacoffee: false,
+  $icon-kofi: false,
   $icon-twitter: false,
   $icon-facebook: false,
   $icon-linkedin: false,
@@ -36,6 +39,7 @@
   $icon-docker: false,
   $icon-stack: false,
   $icon-instagram: false,
+  $icon-pixelfed: false,
   $icon-pinterest: false,
   $icon-discord: false,
   $icon-twitch: false,
@@ -50,6 +54,8 @@
   //$icon-angr: true,//pagination, goto next page
   //$icon-angrr: true,//pagination, goto last page
   //$icon-angu: true,//back to top button, appears after scrolling down.
+  //$icon-world: true,//language select menu
+  //$icon-copy: true,//copy to clipboard, for code blocks.
 
   //$icon-ffolder: false,
   //$icon-folder: false,// categories folder
@@ -77,6 +83,7 @@
   //$a1d: #f90,// link color
   //$a2d: #fb0,// link hover/focus color
   //$a3d: #f90,// link h1-h2 hover/focus color
+  //$a4d: #f90,// link visited color
   //$cgd: #593,// ins green, success
   //$crd: #e33,// del red, errors
 
@@ -90,6 +97,7 @@
   //$a1: #c40,// link color
   //$a2: #e60,// link hover/focus color
   //$a3: #f90,// link h1-h2 hover/focus color
+  //$a4: #c40,// link visited color
   //$cg: #373,// ins green, success
   //$cr: #d33,// del red, errors
 
@@ -120,14 +128,23 @@
   //$ha: 92%,// mark/highlight line
 
   /// These lines find the spot at which to insert your appended fonts.
-  //$findFont-Main: "Segoe UI",     // ← append custom MAIN font(s) AFTER this
-  //$findFont-Code: "Segoe UI Mono",// ← append custom CODE font(s) AFTER this
+  //$findFont-Main: "Segoe UI",     // ← APPEND custom MAIN font(s) AFTER this
+  //$findFont-Code: "Segoe UI Mono",// ← APPEND custom CODE font(s) AFTER this
+
+  /// If you want to prepend the font list, then use null instead:
+  //$findFont-Main: null,         // ← PREPEND custom MAIN font(s)
+  //$findFont-Code: null,         // ← PREPEND custom CODE font(s)
 
   /// These lines specify the fonts to add.
   //$fontExt-Main: (ExampleFont1, "Example Font 2"),// MAIN font(s) to add
   //$fontExt-Code: (ExampleCode1, "Example Code 2"),// CODE font(s) to add
 
-  /// If prepending/appending fonts above, then no need to change them below
+  /// If relying on installed fonts alone, then the above is all you need, if the visiting system has the intended font installed then it will use it!
+  /// However, if you want to load the Font File resource to ensure it is loaded if they do not have it, then use @use at the VERY Bottom of this file.
+  /// For a Sans based system font stack, I measured the least Cumulative Layout Shift with: Roboto, Lato, Arimo
+
+  /// If prepending/appending fonts above, then no need to change them with the 2 below lines.
+  /// The following 2 below lines give a way to hard code a font list if you prefer.
   //$font: Roboto system-ui -apple-system BlinkMacSystemFont "Segoe UI" Oxygen Ubuntu Cantarell "Fira Sans" "Droid Sans" "Helvetica Neue" "Noto Sans" Helvetica Arial sans-serif,
   //$font-mono: ui-monospace Menlo Monaco Consolas "SF Mono" "Cascadia Mono" "Segoe UI Mono" "DejaVu Sans Mono" "Liberation Mono" "Roboto Mono" "Oxygen Mono" "Ubuntu Monospace" "Ubuntu Mono" "Source Code Pro" "Fira Mono" "Droid Sans Mono" "Courier New" Courier monospace,
 
@@ -169,9 +186,20 @@
   //$form: true,//Form elements (non-button)
   //$top: true,//back to top button using CSS
   //$search: true,//search feature
-  //$toc: true,//Table of Contents, page index / recent posts block
-  //$zola: true,//Zola Specific
+  //$blocks: true,//css classes for block formatting, eg: recent posts, table of contents, series navigation
+  //$series: true,//series navigation list
+  //$modifiers: true,//tiny modifier classes for sizing, spacing, etc.
   //$misc: false,
-  //$grid: false,//Infinity Grid, column based layouts.
+  //$grid: true,//Infinity Grid, column based layouts.
   //$syntax: true,//syntax highlighting for code blocks
 );
+@use "extra";
+/******************************************************************************
+ *   FONTS - Abridge by default uses the System Font Stack
+ *     https://css-tricks.com/snippets/css/system-font-stack/
+ *   However if you need you can load a specific font below,
+ *     make sure to have the relevant woff2 fonts in your static/fonts folder
+ *   I measured the least Cumulative Layout Shift with: Roboto, Lato, Arimo
+ *****************************************************************************/
+//@use "fonts/Roboto";
+//@use "fonts/Arimo";

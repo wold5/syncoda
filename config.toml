@@ -24,8 +24,6 @@ ignored_content = ["*.{graphml,xlsx}", "temp.*"]
 #hard_link_static = false # set to true to hard link instead of copying, useful for very large files.
 
 
-# Any Extra language you do not use, delete or comment out the extra language sections:
-
 [link_checker]
 internal_level = "warn"
 
@@ -50,17 +48,6 @@ external_links_no_referrer = false # rel="noreferrer"
 smart_punctuation = false          # `...` to `…`, `"quote"` to `“curly”` etc
 
 [extra]
-###############################################################################
-### Language
-### https://www.w3schools.com/tags/ref_country_codes.asp
-### https://tera.netlify.app/docs#date
-###############################################################################
-date_locale = "en_US"
-language_code = "en-US"
-flag.en = "🇬🇧"
-flag.fr = "🇫🇷"
-#flag.es = "🇪🇸"
-
 
 ###############################################################################
 ### Layout & Format

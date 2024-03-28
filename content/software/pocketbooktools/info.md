@@ -1,5 +1,5 @@
 +++
-title = "PocketBookTools"
+title = "PocketBookTools Project info"
 date = 2021-06-01T09:07:20+01:00
 #template = "page_software.html"
 

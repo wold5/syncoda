@@ -4,7 +4,7 @@ weight = 10
 
 #sort_by = "title"
 paginate_by = 5
-template = "archive.html"
+template = "section_subsections.html" #"archive.html"
 transparancy = false
 
 [extra]

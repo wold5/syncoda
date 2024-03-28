@@ -1,10 +1,9 @@
 +++
 sort_by = "weight"
-template = "section_subsections.html"
-
 transparent = true
-
 title = "Software"
+
+template = "section_subsections.html"
 
 [extra]
 hide_section_dates = true

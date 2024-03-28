@@ -30,9 +30,6 @@ AVATeR was originally developed for use with PocketBook readers, and is thus ver
 - 6.7.x (Lux 5)
 - 5.8.x (HD Touch 2)
 
-## Translation note support missing
-Around firmware 6.7, a new type of note was added that is aimed at learning languages: it stores additional context or dictionary information.
-
 \
 \
 

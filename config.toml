@@ -47,6 +47,23 @@ external_links_no_follow = false   # rel="nofollow"
 external_links_no_referrer = false # rel="noreferrer"
 smart_punctuation = false          # `...` to `…`, `"quote"` to `“curly”` etc
 
+
+[languages.nl]
+language_name = "Nederlands"
+title = "syncoda.nl"
+description = "Website over software development werkzaamheden, m.b.t. e-reading, data en grafische zaken"
+generate_feed = false
+build_search_index = false
+search.include_title = true # include title of page/section in index
+search.include_description = true # include description of page/section in index
+search.include_content = true # include rendered content of page/section in index
+# search.truncate_content_length = 100 # Truncate at nth character. May be useful if index is getting too large.
+taxonomies = [
+#    {name = "categories", feed = true},
+    {name = "tags", feed = false},
+]
+
+
 [extra]
 
 ###############################################################################

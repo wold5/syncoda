@@ -1,10 +1,10 @@
-{# Syncoda.nl macros for Zola
+{#
+Syncoda.nl macros for Zola
 
+- 2024-03-28 First release
 
-2024-03-1 first release
 
 #}
-
 
 {# NAVIGATION RELATED #}
 
@@ -13,23 +13,21 @@ Get a section its pages, and output each within <li> tags.
 Upon reaching page_list_limit, output a "More..." link to the section.
 
 Object variables
-- extra.page_list_limit = limit shown pages. Overrides function argument
+- page_list_limit = limit listed pages, for nested sections. 0 and lower means no limit
 
 #}
-{% macro list_section_pages(sectionobject, page_list_limit=-1) %}
-	{%- set pagecount_limit = sectionobject.extra.page_list_limit | default(value=page_list_limit) -%}
-	{%- if pagecount_limit != 0 -%}
-		{%- set_global pagecounter = 0 -%}
-		{%- for p in sectionobject.pages -%}{#- using section here !? -#}
-			{%- if pagecounter != pagecount_limit -%}
-				<li><a href="{{ p.permalink | safe }}">{{ p.title }}</a></li>
-				{%- set_global pagecounter = pagecounter + 1 -%}
-			{% else %}
-				<li><a href="{{ sectionobject.permalink | safe }}">More...</a></li>
+{% macro list_section_pages(section_object, page_list_limit=-1) %}
+	{%- set_global pagecounter = 0 -%}
+	{% for p in section_object.pages %}
+		{#- Avoid a if/while <= loop, as unlimited range then requires some max value -#}
+		{%- if pagecounter != page_list_limit -%}
+			<li><a href="{{ p.permalink | safe }}">{{ p.title | default(value="Page") }}</a></li>
+			{%- set_global pagecounter = pagecounter + 1 -%}
+		{%- else -%}
+			<li><a href="{{ section_object.permalink | safe }}">more pages...</a></li>
 			{%- break -%}
-			{%- endif -%}
-		{%- endfor -%}
-	{%- endif -%}
+		{%- endif -%}
+	{% endfor %}
 {% endmacro list_pagelinks %}
 
 
@@ -40,70 +38,104 @@ Object variables
 - extra.logo = project logo
 
 #}
-{% macro list_section_title(sectionobject) %}
-	{%- set logo = sectionobject.extra.logo | default(value="") -%}
-	{%- if logo -%}<img class="index_section_logo" src="{{logo}}" />&nbsp;{% endif -%}<a href="{{ sectionobject.permalink | safe }}{%- if config.extra.uglyurls -%}index.html{%- endif %}">{{ sectionobject.title }}</a>
-{% endmacro list_section_title %}
+{%- macro list_section_title(section_object) -%}
+	{%- set logo = section_object.extra.logo | default(value="") -%}
+	{%- if logo -%}<img alt="section_logo" class="index_section_logo" src="{{logo | safe}}">&nbsp;{% endif -%}<a href="{{ section_object.permalink | safe }}{%- if config.extra.uglyurls -%}index.html{%- endif %}">{{ section_object.title | default(value="Section") }}</a>
+{%- endmacro list_section_title -%}
 
 
 {# 
 Recursive function for building a menu with subsections and their pages
-Currently limited to depth=1, and uses <h*> headers.
-Todo: build a contiguous unordered list 
+
+Recursive function for building a menu of pages, sections and their pages and subsections. Can be used for section indexes.
+- upon reaching `maxdepth`, shows a '[More sections...]' link. Ideally that target also uses this script, so the user may continue there.
+- Only processes config.default_language, can't handle multi-language sites yet
 
 Object variables:
+- extra.page_list_limit = limit the listed number of pages. Ignored when viewing the parent section.
 - extra.page_list_skipme = skip this section alltogether
 - extra.page_list_hide = hide pages for this section, but continue to process subsections
 #}
-{% macro show_page_index(sectionobject, depth=0, maxdepth=1) -%}
-{% if not sectionobject.extra.page_list_skipme %}
-	{# Top level H3 headers #}
-	{% if depth == 1 %}
-		<h3>{{ self::list_section_title(sectionobject=sectionobject) }}</h3>
-		{%- if sectionobject.description -%}
-			<p>{{ sectionobject.description }}</p>
-		{%- endif -%}
-	{%- elif depth > 1 -%}
-		<h4>{{ self::list_section_title(sectionobject=sectionobject) }}</h4>{# open li tag#}
+
+
+{%- macro create_index(section_object, depth=0, maxdepth=4) -%}
+	{%- if not section_object.extra.page_list_skipme -%}
+	{#- helper variables -#}
+	{%- set ancestor_depth = section_object.ancestors | length -%}
+	{%- set opened_ul=false -%}
+	{%- set opened_li=false -%}
+
+	{#- depths > 2 get empty section.pages. As we can't yet handle translated section paths, ignore those -#}
+	{%- if lang == config.default_language -%}
+		{%- set section_object_path = section_object.path | trim_start_matches(pat="/") -%}
+		{%- set section_object = get_section(path=section_object_path ~ "_index.md", metadata_only=false) -%}
+	{%- endif -%}
+
+	{#- New section -#}
+	{#- Limit H3 to direct descendent sections of /posts/ -#}
+	{% if ancestor_depth == 2 %}
+		<li><h3>{{ self::list_section_title(section_object=section_object) }}</h3>
+		{%- if section_object.description -%}<p>{{ section_object.description }}</p>{%- endif -%}
+		{%- set opened_li=true -%}
+	{% elif depth > 0 %}{#- skip parent section itself -#}
+		<li><a href="{{ section_object.permalink | safe }}">[{{ section_object.title }}]</a>
+		{%- set opened_li=true -%}
+	{% endif %}
+
+	{#- Open page/section <ul> -#}
+	{% if ancestor_depth > 1 and section_object.pages or section_object.subsections %}
+		<ul>
+		{%- set opened_ul=true -%}
 	{% endif %}
 
 	{#- Output available pages -#}
-	{% if not sectionobject.extra.page_list_hide | default(value=false) and sectionobject.pages %}
-		<ul>
-		{{ self::list_section_pages(sectionobject=sectionobject) }}
-		</ul>{# todo remove for nested li #}
-	{% endif %}
-		
-	{% if depth <= maxdepth and sectionobject.subsections %}
-		{% for s in sectionobject.subsections %}
-			{# start recurse call on subsection {{s}}<br> #}
-			{% set section_subsection_object = get_section(path=s, metadata_only=false) %}
-			{{ self::show_page_index(sectionobject=section_subsection_object, depth = depth + 1) }}
-		{% endfor %}
-	{% else %}
-		       {#</ul></li> todo, close level 2+ li tag, current <h4>#}
-	{%- endif -%}
-	{#</ul>#}
-{%- endif -%}
-{% endmacro list_subsection_pagelinks -%}
+	{%- set has_child_pages = not section_object.extra.page_list_hide | default(value=false) and section_object.pages -%}
+	{%- if has_child_pages -%}
+		{#- For section depth=0, always get all pages (-1), otherwise use extra.page_list_limit -#}
+		{%- if depth > 0 -%}
+			{% set page_list_limit = section_object.extra.page_list_limit | default(value=-1) %}
+			{{- self::list_section_pages(section_object=section_object, page_list_limit=page_list_limit) -}}
+		{%- else %}
+			{{- self::list_section_pages(section_object=section_object, page_list_limit=-1) -}}
+		{%- endif -%}
 
+	{%- endif -%}
+
+	{#- Output available subsections -#}
+	{%- if section_object.subsections -%}
+		{%- if depth <= maxdepth -%}
+			{%- for subsec_path in section_object.subsections -%}
+				{# start recurse call on subsection {{s}}<br> #}
+				{%- set subsec_object = get_section(path=subsec_path, metadata_only=false) -%}
+				{{ self::create_index(section_object=subsec_object, depth = depth + 1, maxdepth=maxdepth) }}
+			{% endfor %}
+		{%- else -%}
+			<li><a href="{{ section_object.permalink | safe }}">[[[ more sections... ]]]</a></li>
+		{%- endif -%}
+	{%- endif -%}
+
+	{# Close any open <ul> or <li>. Need not revert to false #}
+	{% if opened_ul %}</ul>{%- endif -%}
+	{%- if opened_li -%}</li>{% endif %}
+	{%- endif -%}
+{%- endmacro show_page_index -%}
 
 
 {# SECTION RELATED #}
 
 
-
 {# 
 
 Get a section its first ordered page path
+
 - Assumes the original sorting suffices.
 - Use `| trim_start_matches(pat="/")` to remove any leading slashes
 
 -#}
 {% macro get_section_first_page_path(path) -%}
-	{%- set section = get_section(path=path, metadata_only=false) -%}
-	{%- for page in section.pages -%}
-		{{ page.path }}
+	{%- set s = get_section(path=path, metadata_only=false) -%}
+	{%- for p in s.pages -%}
+		{{ p.path }}
 		{%- if loop.index0 == 0 -%}
 			{%- break -%}
 		{%- endif -%}
@@ -113,79 +145,94 @@ Get a section its first ordered page path
 
 {#
 
-Compare page paths, if unqueal a newer release is available.
-Alternatively, compare using some `page.extra.version` variable.
-Todo: CSS class referenceTodo: CSS class reference
+Get a page its parent section path, for use with get_section()
 
 #}
-{% macro check_latest_version(section, currentpage) -%}
-	{% set newest = self::get_section_first_page_path(path=section) %}
-	{% if page.path != newest %}
-		{%- set page = get_page(path=newest ~ "index.md" | trim_start_matches(pat="/") ) %}
-		<p style="padding: 20px; border: solid 1px orange; background-color: yellow; color: black; text-align: center;">Newer release available: <a href="{{ page.permalink }}">{{ page.title }}</a></p>
-	{% endif %}
-{% endmacro get_section_first_page_path %}
+{%- macro get_page_parent_section_path(path) -%}
+	{%- set section_parent_dir = path | split(pat="/") | slice(end=-2) | join(sep="/") | trim_start_matches(pat="/") -%}
+{{- section_parent_dir ~ '/_index.md' -}}
+{%- endmacro get_page_parent_section -%}
 
 
+{#
+
+Compare page paths, if unqueal a newer release is available.
+
+- Alternatively, compare using some `page.extra.version` variable.
+
+#}
+{%- macro check_latest_version(page_path) -%}
+	{%- set parent_section = self::get_page_parent_section_path(path=page_path) -%}
+	{%- set newest_page_path = self::get_section_first_page_path(path=parent_section) -%}
+	{%- if page_path != newest_page_path -%}
+		{%- set newest_page_object = get_page(path=newest_page_path ~ "index.md" | trim_start_matches(pat="/") ) -%}
+	<a href="{{ newest_page_object.permalink }}">{{ newest_page_object.title }}</a>
+	{%- endif -%}
+{%- endmacro get_section_first_page_path -%}
 
 {# DOWNLOAD LINK RELATED #}
 
 {#
 
 Output color-coded remarks, from an array of arrays (see example below).
-Priority codes: 0=none/green; 1=low/yellow; 2=high/red
+
+- Priority codes: 0=none/green; 1=low/yellow; 2=high/red
 
 ```
 [extra]
 remarks = [[1, "Windows EXE installer has been deprecated in favour of the MSI installer."],[0, "added Windows Qt5 release"]]
 ```
-- Todo: use CSS classes
-- Dictionary keys can't be referenced currently (v0.17), so use array offsets.
-- The else condition could be simplified, if a default array argument (`default(array=[0,"No changes"])`) was supported (only literals currently). To fix this, preface the macro call by something like `{% set remarks = page.extra.remarks | default(value="") %}
+
+- Set remarks to `page.extra.remarks | default(value="")` to avoid non-existing extra variable
+- The else condition could be replaced by a default array argument (`default(array=[0,"No changes"])`) when this is supported (only literals currently).
+- Uses array offsets as dictionary keys aren't supported yet (v0.17)
 
 #}
-{% macro print_download_remarks(remarks, spacer="") -%}
-	<p>
-	{% if not remarks %}
-		<span style="background-color: green">{{- spacer | safe -}}</span> No requirements have changed<br>
-	{% else %}
-		{% for r in remarks %}
-			<span style="margin-right: 5px; padding: 0px 10px; background-color: {% if r[0] == 0 -%}green{%- elif r[0] == 1 -%}yellow{%- else -%}red{%- endif -%}">{{- spacer | safe -}}</span> {{ r[1] -}}<br>
-		{% endfor %}
-	{% endif %}
-	</p>
-{% endmacro print_download_remarks -%}
+{% macro print_download_remarks(remarks="", spacer="") %}
+	{%- if not remarks -%}
+		<span style="background-color: green">{{- spacer | safe -}}</span> No requirements have changed
+	{%- else -%}
+		{%- for r in remarks -%}
+			<span style="margin-right: 5px; padding: 0px 10px; background-color: {% if r[0] == 0 -%}green{%- elif r[0] == 1 -%}yellow{%- else -%}red{%- endif -%}">{{- spacer | safe -}}</span> {{- r[1] }}<br>{%- set x=true %}
+		{%- endfor -%}
+	{%- endif %}
+{%- endmacro print_download_remarks -%}
+
+
+{% macro print_download_remarks2(remark="", spacer="") %}
+	<span style="margin-right: 5px; padding: 0px 10px; background-color: {% if remark[0] == 0 -%}green{%- elif remark[0] == 1 -%}yellow{%- else -%}red{%- endif -%}">{{- spacer | safe -}}</span> {{- remark[1] }}
+{%- endmacro print_download_remarks -%}
 
 
 {#
 
 Match filename to OS/platform.
 Using extension initially, filename contained reference second.
-When using subdirecties, create a directory2platform matching start
-Ideally, use just the filename. 
+When using subdirecties, consider creating a directory2platform matcher
 
 #}
 {%- macro filename2platform(path) -%}
-    {% set platform="" %}
-    {# get platform: replace this part by a capture group #}
-    {# match extension #}
-    {% if path is matching(".deb$") %}
-        {% set platform = "debian" %}
-    {% elif path is matching(".rpm$") %}
-        {% set platform = "redhat" %}
-    {% elif path is matching(".exe$|.zip$|.msi$") %}
-        {% set platform = "windows" %}
-    {# match filename #}
-    {% elif path is matching(".tar.gz$") %}
-        {% set platform = "source" %}
-    {% elif path is matching("windows") %}
-        {% set platform = "windows" %}
-    {% elif path is matching("fedora") %}
-        {% set platform = "redhat" %}
-    {% else %}
-        {% set platform = "other" %}
-    {% endif -%}
-{{platform}}
+    {% set platform="" -%}
+    {#- get platform: replace this part by a capture group -#}
+    {#- match extension -#}
+    {%- if path is matching(".deb$") -%}
+        {%- set platform = "debian" -%}
+    {%- elif path is matching(".rpm$") -%}
+        {%- set platform = "redhat" -%}
+    {%- elif path is matching(".exe$|.zip$|.msi$") -%}
+        {%- set platform = "windows" -%}
+    {#- match filename -#}
+    {%- elif path is matching(".tar.gz$") -%}
+        {%- set platform = "source" -%}
+    {%- elif path is matching("windows") -%}
+        {%- set platform = "windows" -%}
+    {%- elif path is matching("fedora") -%}
+        {%- set platform = "redhat" -%}
+    {%- else -%}
+        {%- set platform = "other" -%}
+    {%- endif -%}
+
+	{{-platform-}}
 {%- endmacro %}
 
 
@@ -195,8 +242,8 @@ Decorate the filelink, with optional SHA256 hash (sufficient)
 
 #}
 {%- macro filelink_decoration(asset, filename, gethashes=true) -%}
-<p><a href="{{ asset }}">{{filename}}</a>
-{%- if gethashes %} <span style="font-size: 60%;">SHA256 {{ get_hash(path=asset, sha_type=256, base64=false) }}</span>{%- endif -%}</p>
+<a href="{{ asset | safe }}">{{filename}}</a>
+{%- if gethashes %} <span style="font-size: 60%;">SHA256 {{ get_hash(path=asset, sha_type=256, base64=false) }}</span>{%- endif -%}
 {%- endmacro %}
 
 
@@ -210,50 +257,48 @@ include_matches = regex for includes, has priority over exclude_matches
 exclude_matches = regex for excludes
 
 #}
-{% macro assets2downloads(page, gethashes=true, include_matches="", exclude_matches=".png$|.jp[e]?g$|.gif$|.txt$|.pdf$|.bmp$|.mp4$") -%}
-{% set lastPlatform = "" %}
+{%- macro assets2downloads(page, gethashes=true, include_matches="", exclude_matches=".png$|.jp[e]?g$|.gif$|.txt$|.pdf$|.bmp$|.mp4$") -%}
+{%- set lastPlatform = "" -%}
+{%- for asset in page.assets -%}
+    {#- presents a lowercase filename -#}
+    {%- set iconpath = "" -%}
 
-{% for asset in page.assets | sort %}
-    {# presents a lowercase filename #}
-    {% set iconpath = "" %}
-
-    {# include OR exclude files. Include takes priority #}
-    {% if include_matches and asset is not matching(include_matches) %}
-        {% continue %}
-    {% elif exclude_matches and asset is matching(exclude_matches) %}
-        {% continue %}
-    {% endif %}
-
-    {# get the filename lowercase. pat depends on platform #}
-    {% set filename = asset | split(pat="/") | last | lower %}
-
-    {# identify platform. When using subdirectories, splitting on the first part suffices instead #}
-    {% set platform = self::filename2platform(path=filename) | trim %}
-
-    {# output platform label #}
-    {% if platform != lastPlatform %}
-        {% set_global lastPlatform = platform %}
-
-        {# overrides #}
-        {%- if platform == "debian" -%}
-<h3 id="downloads_debian"><img src="/images/debian.png"> Linux Debian (Ubuntu, Mint, etc)</h3>
-        {%- elif platform == "redhat" -%}
-<h3 id="downloads_redhat"><img src="/images/redhat.png"> Linux RedHat (Fedora, SUSE, etc)</h3>
-        {%- elif platform == "macos" -%}
-<h3 id="downloads_macos"><img src="/images/macos.png"> MacOS</h3>
-        {%- elif platform == "windows" -%}
-<h3 id="downloads_windows"><img src="/images/windows.png"> Windows</h3>
-<p>For older Windows releases the Qt5 .zip version may work instead.</p>
-        {# default #}
-        {%- else -%}
-<h3 id="downloads_{{platform}}"><img src="/images/{{platform}}.png">{{platform | capitalize}}</h3>
-        {%- endif -%}
+    {#- include OR exclude files. Include takes priority -#}
+    {%- if include_matches and asset is not matching(include_matches) -%}
+        {%- continue -%}
+    {%- elif exclude_matches and asset is matching(exclude_matches) -%}
+        {%- continue -%}
     {%- endif -%}
 
-{{- self::filelink_decoration(asset=asset, filename=filename, gethashes=true) -}}
+    {#- get the filename lowercase. pat depends on platform -#}
+    {%- set filename = asset | split(pat="/") | last | lower -%}
 
-{%- endfor %}
-{% endmacro assets2downloads -%}
+    {#- identify platform. When using subdirectories, splitting on the first part suffices instead -#}
+    {%- set platform = self::filename2platform(path=filename) -%}
+
+    {#- output platform label -#}
+    {%- if platform != lastPlatform -%}
+        {%- set_global lastPlatform = platform -%}
+        {#- overrides -#}
+        {% if platform == "redhat" %}
+	<h3 id="downloads_redhat"><img src="/images/redhat.png"> Linux RedHat (Fedora, SUSE, etc)</h3>
+        {% elif platform == "debian" %}
+	<h3 id="downloads_debian"><img src="/images/debian.png"> Linux Debian (Ubuntu, Mint, etc)</h3>
+        {% elif platform == "macos" %}
+	<h3 id="downloads_macos"><img src="/images/macos.png"> MacOS</h3>
+        {% elif platform == "windows" %}
+	<h3 id="downloads_windows"><img src="/images/windows.png"> Windows</h3>
+	<p>For older Windows releases the Qt5 .zip version may work instead.</p>
+        {% else %}
+	<h3 id="downloads_{{platform}}"><img src="/images/{{platform}}.png">{{platform | capitalize}}</h3>
+        {%- endif -%}
+	{%- endif -%}
+	{#- output downloadlink -#}
+	<!--<p>First indents</p>
+	<p>Second doesn't</p>-->
+	<p>{{- self::filelink_decoration(asset=asset, filename=filename, gethashes=true) | safe -}}</p>
+{%- endfor -%}
+{%- endmacro assets2downloads -%}
 
 
 {# 

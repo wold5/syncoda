@@ -24,6 +24,7 @@ Variables:
 
 	{{ section.content | safe }}
 
- 	{{ syncoda_macros::show_page_index(sectionobject=section) }}
+ 	{{- syncoda_macros::create_index(section_object=section, depth=0, maxdepth=5) -}}
+
 </div>
 {%- endblock content %}

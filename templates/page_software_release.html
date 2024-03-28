@@ -13,39 +13,63 @@
     {{- macros::meta_post(page=page, config=config) }}
     {%- endif %}{%- endif %}
 
-	{{ syncoda_macros::check_latest_version(section="software/avater/releases/_index.md", currentpage=page) }}
+	{% set newer_version_link = syncoda_macros::check_latest_version(page_path=page.path) %}
+	{% if newer_version_link %}
+	<p style="padding: 10px; border: solid 1px orange; background-color: yellow; color: black; text-align: center;">Newer release available: {{ newer_version_link | safe -}}
+	</p>
+	{% endif %}
 
 	{{ page.summary | safe }}
 
-	{% if page.extra.screenshots %}
-		{% for screenshot in page.extra.screenshots %} 
+	{% if page.extra.screenshots -%}
+		{%- for screenshot in page.extra.screenshots -%}
 			<img alt="AVATeR screenshot" src={{ screenshot }} />
 			{# sliding images todo #}
-			{% if loop.index0 == 0 %}
-				{% break %}
-			{% endif %}
-		{% endfor %}
-	{% endif %}
+			{%- if loop.index0 == 0 -%}
+				{%- break -%}
+			{%- endif -%}
+		{%- endfor -%}
+	{%- endif %}
 
 	<h2 id="changelog">Changelog</h2>
 	<p>Changes are listed below. The <a href="/files/avater/changelog.txt">Full changelog (.txt)</a> includes previous versions.</p>
-	{%- set file_changelog = page.path ~ "changelog.txt" -%}
-	<pre class="z-code"><code>{{- load_data(path=file_changelog, format="plain") -}}</code></pre>
+	{% set file_changelog = page.path ~ "changelog.txt" -%}
+	<pre class="z-code"><code>
+{{ load_data(path=file_changelog, format="plain") | trim }}
+	</code></pre>
 
 	<h2 id="downloads">Downloads</h2>
-	<p>Downloads are listed below. 
+	<p>Downloads are listed below.</p>
 
 	<h3 id="requirements">Requirements</h3>
 	<p>Any special remarks are listed below using colors. Also see <a href="/software/avater/pages/requirements/">System requirements</a> and <a href="/software/avater/pages/compatibility">Device compatibility</a>.</p>
 
-	{% set remarks = page.extra.remarks | default(value="") %}
-	{%- if remarks -%}{{ syncoda_macros::print_download_remarks(remarks=remarks) }}{%- endif -%}
+	<p>
+	{%- set spacer = "" -%}
+	{%- set remarks = page.extra.remarks | default(value="") -%}
+	{%- if not remarks -%}
+		{{ syncoda_macros::print_download_remarks2(remark=[0,"No requirements have changed"]) }}<br>
+	{%- else -%}
+	{% for r in remarks -%}
+		{{ syncoda_macros::print_download_remarks2(remark=r) }}<br>
+	{%- endfor %}
+	{%- endif %}
+	</p>
 
-	{%- set file_requirements = page.path ~ "requirements.txt" -%}
-	<pre>{{- load_data(path=file_requirements, format="plain", required=false) | default(value="No changes") -}}</pre>
+	{%- set file_requirements = page.path ~ "requirements.txt" %}
+	<pre>
+{{ load_data(path=file_requirements, format="plain", required=false) | default(value="No changes") | trim }}
+	</pre>
 
-	{{ syncoda_macros::check_latest_version(section="software/avater/releases/_index.md", currentpage=page) }}
-	{{ syncoda_macros::assets2downloads(page=page) }}
+	{% set newer_version = syncoda_macros::check_latest_version(page_path=page.path) -%}
+	{%- if newer_version %}
+	<p style="padding: 5px; border: solid 1px orange; background-color: yellow; color: black; text-align: center;">
+	Newer release available: {{ newer_version | safe }}
+	</p>
+	{%- endif -%}
+
+{{ syncoda_macros::assets2downloads(page=page) }}
+
 	<p>&nbsp;</p>
 	<p style="text-align: center;">***</p>
 	<p>&nbsp;</p>

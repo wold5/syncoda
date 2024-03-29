@@ -35,9 +35,8 @@
 	<p>Changes are listed below. The <a href="/files/avater/changelog.txt">Full changelog (.txt)</a> includes previous versions.</p>
 	{% set file_changelog = page.path ~ "changelog.txt" -%}
 	<pre class="z-code"><code>
-{{ load_data(path=file_changelog, format="plain") | trim }}
+{{- load_data(path=file_changelog, format="plain") | trim -}}
 	</code></pre>
-
 	<h2 id="downloads">Downloads</h2>
 	<p>Downloads are listed below.</p>
 
@@ -58,7 +57,7 @@
 
 	{%- set file_requirements = page.path ~ "requirements.txt" %}
 	<pre>
-{{ load_data(path=file_requirements, format="plain", required=false) | default(value="No changes") | trim }}
+{{- load_data(path=file_requirements, format="plain", required=false) | default(value="No changes") | trim -}}
 	</pre>
 
 	{% set newer_version = syncoda_macros::check_latest_version(page_path=page.path) -%}

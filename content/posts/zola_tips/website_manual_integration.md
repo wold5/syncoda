@@ -17,6 +17,7 @@ Brief notes on integrating the [AVATeR program user manual](/software/avater/man
 
 <!-- more -->
 
+## The manual
 The manual in question is maintained separately, to allow inclusion with software packages and the website. It consists of a _single markdown file_, but may be extended to multiple files in the future.
 
 _Note parts of the original article were moved into the introduction article._
@@ -91,8 +92,8 @@ This does remove the manual page from a menu like that discussed for `layout1`:
 You may as well consider grouping all pages into sections, and constructing the menu from sections instead. This allows news related pages to be transparently forwarded (i.e. to the frontpage), and not project related pages. This is the setup currently used for this website.
 
 ## Themes for documentation
-An alternative to the aforementioned integration into the main website, is building the manual independently using some theme (collection of templates). Themes exist aimed at documentation, with current examples being:
-- [book](https://github.com/getzola/book) (a basic but useful book theme)
+An alternative is building the manual independently using some theme (collection of templates). Themes exist aimed at documentation, with current examples being:
+- [book](https://github.com/getzola/book) (based on Gitbook, a basic book theme)
 - [adidoks](https://github.com/aaranxu/adidoks) (a `doks` port for Zola)
 - [doks (Hugo)](https://github.com/h-enk/doks). 
 

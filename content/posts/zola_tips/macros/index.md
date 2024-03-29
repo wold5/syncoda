@@ -20,19 +20,26 @@ The macros used on this website (Syncoda.nl) are briefly presented. You may cons
 
 Note:
 - shorter macros are included - latest versions and others can be accessed via [github](https://github.com/wold5/syncoda/). These are included here for demonstrative/learning purposes. For a '80s BASIC vibe, type them over manually ;)
-- indentation is used: this can be problematic with templates, for macros with whitespace control, this matters less
-- sometimes inline CSS is used, prioritizing portability and re-use. Visual styling aims to be solely functional and universal
+
+- macros use indentation: when used in templates positioning is impacted
+- sometimes inline CSS is used, prioritizing portability and re-use
 - translation support will be improved halfway 2024
 
 ## Templates
 
+_! Note these templates may work with themes other than [Abridge](https://github.com/jieiku/abridge/) with no or small changes._
+
+For the current templates, see [/templates/  [github]](https://github.com/wold5/syncoda/blob/master/templates/).
+
+
 ### page_software_release.html
-Software release page, offering a:
-- changelog (loading changelog.txt)
-- requirements (loading requirents.txt)
+Software release page, offering:
 - release remarks
 - download menu list (macro that utilises `page.assets`). 
-which depend on various macros.
+- changelog (loads changelog.txt)
+- requirements (loads requirements.txt)
+
+which in turn depend on various macros.
 
 An example is the [AVATeR v0.15 release page](/software/avater/releases/0.15/).
 
@@ -69,7 +76,7 @@ When subsections also use this template, ongoing navigation is allowed to any de
 _! Note the macro currently only supports the site main language._
 
 ## Macros: navigation related
-
+For the current syncoda.nl macros, see [templates/macros/syncoda_macros.html  [github]](https://github.com/wold5/syncoda/blob/master/templates/macros/syncoda_macros.html).
 
 ### Get a page its parent section
 - `macro get_page_parent_section_path(path)`
@@ -109,19 +116,6 @@ Get a section its pages, and output each within `<li>` tags (no `<ul>`)
 {% endmacro list_pagelinks %}
 ```
 
-### Page and section index
-- `macro create_index(sectionobject, depth=0, maxdepth=5)`
-
-Large recursive function that builds a menu tree with pages and (sub)sections. Can be used for section indexes, like:
-
-![](zola_macro_createindex.png)
-
-- page count can be limited per section, outputs a 'more...' link to that section
-- upon reaching `maxdepth`, outputs a '[More sections...]' link to that section.
-
-Used for the [software section index](/software/).
-
-
 ### Get first page path for a section
 - `macro get_section_first_page_path(sectionpath=parent_section)`
 
@@ -142,8 +136,22 @@ Get a section its first ordered page path(!), not the object.
 ```
 
 
-## Macros: software release related
+### Page and section index
+- `macro create_index(sectionobject, depth=0, maxdepth=5)`
 
+Large recursive function that builds a menu tree with pages and (sub)sections. Can be used for section indexes, like:
+
+![](zola_macro_createindex.png)
+
+- _this template is still a work in progress_
+- page count can be limited per section, outputs a 'more...' link to that section
+- upon reaching `maxdepth`, outputs a '[More sections...]' link to that section.
+
+Used for the [software section index](/software/).
+
+
+## Macros: software release related
+For the current syncoda.nl macros, see [templates/macros/syncoda_macros.html  [github]](https://github.com/wold5/syncoda/blob/master/templates/macros/syncoda_macros.html).
 
 ### Compare latest version
 

@@ -177,7 +177,7 @@ Get a page its parent section path, for use with get_section()
 
 {#
 
-Compare page paths, if unqueal a newer release is available.
+Compare page paths, if unequal a newer release is available.
 
 - Alternatively, compare using some `page.extra.version` variable.
 
@@ -227,9 +227,9 @@ remarks = [[1, "Windows EXE installer has been deprecated in favour of the MSI i
 
 {#
 
-Match filename to OS/platform.
-Using extension initially, filename contained reference second.
-When using subdirecties, consider creating a directory2platform matcher
+Match filename to OS/platform, customizable.
+- Using extension initially, filename contained reference second.
+- When using subdirecties, consider creating a directory2platform matcher
 
 #}
 {%- macro filename2platform(path) -%}
@@ -273,9 +273,9 @@ Decorate the filelink, with optional SHA256 hash (sufficient)
 Generate a download menu by platform (single iteration)
 
 Arguments:
-gethashes = passed to filelink_decoration
-include_matches = regex for includes, has priority over exclude_matches
-exclude_matches = regex for excludes
+- gethashes = passed to filelink_decoration
+- include_matches = regex for includes, has priority over exclude_matches
+- exclude_matches = regex for excludes
 
 #}
 {%- macro assets2downloads(page, gethashes=true, include_matches="", exclude_matches=".png$|.jp[e]?g$|.gif$|.txt$|.pdf$|.bmp$|.mp4$") -%}

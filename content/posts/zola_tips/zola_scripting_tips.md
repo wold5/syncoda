@@ -59,6 +59,7 @@ Listed are some limitations encountered with Zola (v0.17) and [Tera v1.x](https:
 
 Such limitations also provide challenges; one may even propose and submit improvements for inclusion with Zola. Do remember to watch the clock though.
 
+---
 
 ## Tips and hints
 
@@ -84,23 +85,25 @@ For example, the 'newer version check' on our software pages currently works lik
 
 Granted, sometimes this goal is harder to achieve, like when processing multiple items. Macro's could then be called piecemeal on each array object, moving the loop into the template. (Macro's can't return array objects. Granted, a macro could return a 'string-ified' dict, importable as a literal using `load_data()`, but this isn't an easy route...)
 
-### CSS styling
-As noted, macro content can also be styled via parent elements residing in the template, using CSS selectors. This avoids the need for ids and classes in the macro functions, making them easier to re-use.
+### Macro CSS styling
+As noted, macro content can also be styled via parent elements in the template, using (modern) CSS selectors. This avoids the need for ids and classes in the macros themselves, making them easier to re-use.
 
-Including `style=""` CSS overrides at times can be useful (and easier): do consider things like theme compatibility (light/dark modes) and universality/generality, such as 'warning' classification colours being red, yellow and green (Though [future] Martians may prefer other combinations).
+Including `style=""` CSS overrides at times can be useful and, frankly, easier: do consider topics like theme compatibility (light/dark mode) and universality/generality, such as 'warning' colours being typically red, yellow and green (Though [future] Martians may prefer other combinations).
 
 ### Using path or object argument variables
-Passing pages and sections to a macro, can be done using its path (string) or using the object itself. Passing a page/section _object_ allows working with it directly, removing the need to call `get_section()` or similar functions. Especially with translations, one doesn't need to (re-)construct the subsection path. However, when recursing into deeper subsections some arrays like `section.pages` don't get populated, requiring using `get_section()` anyway, as discussed later.
+Passing pages and sections as macro arguments, can be done using their path (string) or the object itself. Passing a _object_ allows working with it directly, removing the need to call `get_section()` or similar functions. Especially with translations, one doesn't need to (re-)construct the subsection path. _However_, when recursing into deeper subsections certain arrays like `section.pages` don't get populated (for reasons of efficiency), requiring using `get_section()` anyway, as discussed later.
 
-_Note: Try to clarify the expected type in the argument variables names, using `path` or `*_object` affix. _
+_Note: Clarify an expected type in the argument variables names, using `path` or `*_object` affix. _
 
-### Avoid double checking arguments
-Avoid letting macros double check some provided argument against that value in the `page.extra` array or similar. Better move such checks into the template, and let the macro be all about its task.
+### Avoid double checking arguments in the macro
+Avoid macros code that double checks some provided argument against a value in the `page.extra` array or object. Better move such checks into the template, and let the macro be all about its task.
 
-### Including .txt files like changelogs, requirements, etc.
+### Including plaintext files
 
-For HTML templates and macros, inclusion using `load_data()` can be done as raw text, or using a pre-formatted code block - we use the latter approach. Using a `<pre><code>` block often suffices, otherwise check your current theme's method of styling code blocks.
-
+For HTML templates and macros, `load_data()` can import plain text (this may contain markdown content). There are two routes to dealing with plaintext:
+- convert the `load_data()` output to HTML by replacing the plaintext linebreaks with `<br>` tags. To do so, append the filters [`linebreaksbr`](https://keats.github.io/tera/docs/#linebreaksbr) _and_ `safe`
+- embed the plaintext in a `<pre>` block which respects the plaintext linebreaks. \
+We use(d) `<pre><code>` in places, as it creates a pretty outlined block. While using CSS/SASS is best, this allows using the theme's style (do check your current theme's method for styling code blocks).
 
 ## Cleaning up macro and template source output
 While a `minify_html` config option exists (removing all 'non-functional' whitespace in the outputted source), it can still be worthwhile to check out the generated HTML sources, even if once. Reasons include fixing forgotten `| safe` calls (escaping special characters) and improving whitespace control.
@@ -121,7 +124,7 @@ For example, with `{%-` the new line will be appended right next to the previous
 Macros can be (ab)used to return some (string) value. If no whitespace control is applied within the macro, the 'return' string may include whitespaces. One indicator is when template whitespace control has no effect around the assigned variable. Other issues include 'if' checks on the assigned result being always true, or linebreaks being included. Whitespace can be removed in the macro, or by appending a `| trim` filter to the macro call that assigns the variable (note this negates any previous `safe` filters).
 
 ### Web standards compliance checks
-It can't hurt pulling the HTML and CSS through some webstandards validator, like the [W3.org's Nu HTML checker](https://validator.w3.org/nu/]. Do expect a fair share of "Trailing slash on void elements" warnings, as XHTML apparently has fallen out of grace ;)
+It can't hurt pulling the HTML and CSS through some webstandards validator, like the [W3.org's Nu HTML checker](https://validator.w3.org/nu/). Do expect a fair share of "Trailing slash on void elements" warnings, as XHTML apparently has fallen out of grace ;)
 
 ## Beware...
 Work on the website usually comes last, so you'll be too tired at some point ;)
@@ -129,16 +132,18 @@ Work on the website usually comes last, so you'll be too tired at some point ;)
 ### get_section metadata flag
 Functions like [`get_section`](https://www.getzola.org/documentation/templates/overview/#get-section) offer a `metadata_only` flag for efficiency - if set true, it will not populate the `section.pages` and `section.subsections`.
 
-### Deeper levelled section.pages being empty
-It seems that for reasons of efficiency, the `section.pages` array doesn't get populated for deeper positioned subsections. This requires a `get_section()` call to get the 'complete' section object. 
-
-When translations exists, constructing a section path can get more complicated, and is still a WIP for our page+section lister (upcoming changes in Zola 0.18.1+ also impact this).
-
 ### Shared variable scope
 Shortcodes and macros share their parent scope: overlapping variable names can have odd results, especially when recusing.
 
 ### Recursive function renaming
 If ever renaming or duplicating a recursive function for experimentation, also rename the call inside the function... 
+
+### Deeper levelled section.pages being empty
+It seems that for reasons of efficiency, the `section.pages` array doesn't get populated for deeper positioned subsections. This requires a `get_section()` call to get the 'complete' section object.
+
+When translations exists, constructing a section path can get more complicated, and is still a WIP for our page+section lister (upcoming changes in Zola 0.18.1+ also impact this).
+
+---
 
 ## Regular expressions
 Provided are a few regular expressions for changing content URLs, outside of Zola using your a *nix shell or Windows Powershell.

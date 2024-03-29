@@ -75,7 +75,7 @@ Preferably let macros return the minimal amount of content possible: text (with 
 
 For example, the 'newer version check' on our software pages currently works like:
 
-```
+```Jinja2
 ### Downloads
 	{% set newer_version_path = syncoda_macros::check_latest_version(page_path=page.path) %}
 	{% if newer_version_path %}
@@ -91,18 +91,18 @@ As noted, macro content can also be styled via parent elements in the template, 
 Including `style=""` CSS overrides at times can be useful and, frankly, easier: do consider topics like theme compatibility (light/dark mode) and universality/generality, such as 'warning' colours being typically red, yellow and green (Though [future] Martians may prefer other combinations).
 
 ### Using path or object argument variables
-Passing pages and sections as macro arguments, can be done using their path (string) or the object itself. Passing a _object_ allows working with it directly, removing the need to call `get_section()` or similar functions. Especially with translations, one doesn't need to (re-)construct the subsection path. _However_, when recursing into deeper subsections certain arrays like `section.pages` don't get populated (for reasons of efficiency), requiring using `get_section()` anyway, as discussed later.
+Passing pages and sections as macro arguments, can be done using their path (string) or the object itself. Passing an _object_ allows working with it directly, removing the need to call `get_section()` or similar functions. Especially with translations, one doesn't need to (re-)construct the subsection path. _However_, when recursing into deeper subsections certain arrays like `section.pages` don't get populated (for reasons of efficiency), requiring using `get_section()` anyway, as discussed later.
 
-_Note: Clarify an expected type in the argument variables names, using `path` or `*_object` affix. _
+_Note: Clarify an expected type in the argument variables names, using `path` or `*_object` affix._
 
 ### Avoid double checking arguments in the macro
 Avoid macros code that double checks some provided argument against a value in the `page.extra` array or object. Better move such checks into the template, and let the macro be all about its task.
 
 ### Including plaintext files
 
-For HTML templates and macros, `load_data()` can import plain text (this may contain markdown content). There are two routes to dealing with plaintext:
+For HTML templates and macros, `load_data()` can import plain text (this may contain markdown content). For dealing with plaintext there are some options:
 - convert the `load_data()` output to HTML by replacing the plaintext linebreaks with `<br>` tags. To do so, append the filters [`linebreaksbr`](https://keats.github.io/tera/docs/#linebreaksbr) _and_ `safe`
-- embed the plaintext in a `<pre>` block which respects the plaintext linebreaks. \
+- embed the plaintext in a `<pre>` HTML block which respects the plaintext linebreaks. \
 We use(d) `<pre><code>` in places, as it creates a pretty outlined block. While using CSS/SASS is best, this allows using the theme's style (do check your current theme's method for styling code blocks).
 
 ## Cleaning up macro and template source output
@@ -133,7 +133,7 @@ Work on the website usually comes last, so you'll be too tired at some point ;)
 Functions like [`get_section`](https://www.getzola.org/documentation/templates/overview/#get-section) offer a `metadata_only` flag for efficiency - if set true, it will not populate the `section.pages` and `section.subsections`.
 
 ### Shared variable scope
-Shortcodes and macros share their parent scope: overlapping variable names can have odd results, especially when recusing.
+Shortcodes and macros share their parent scope: overlapping variable names can have odd results, especially when recursing.
 
 ### Recursive function renaming
 If ever renaming or duplicating a recursive function for experimentation, also rename the call inside the function... 

@@ -140,18 +140,18 @@ The modified script then becomes (don't forget the macro import), with an added 
         {% continue %}
     {% endif %}
 
-	{% set platform = syncoda_macros::filename2platform(path=filename) %}
+    {% set platform = syncoda_macros::filename2platform(path=filename) %}
 
-	{% if platform == "debian" %}
-		{{- syncoda_macros::filelink_decoration(asset=asset, filename=filename, gethashes=true) -}}
-	{% endif %}
+    {% if platform == "debian" %}
+        {{- syncoda_macros::filelink_decoration(asset=asset, filename=filename, gethashes=true) -}}
+    {% endif %}
 {% endfor %}
 
 ```
 We could do slightly better using a single iteration, as discussed next, though it comes with some limitations.
 
 ### Single iteration version
-The single iteration version relies on (alphabetic) sorting to group the packages by platform: a fragile (read: bad) assumption, but it can be helped somewhat. If the assumption holds, we need only check for a new platform, and insert the associated platform text once at for a new one.
+The single iteration version relies on (alphabetic) sorting to group the packages by platform: a fragile (read: bad) assumption, but it can be helped somewhat. If the assumption holds, we need only check for a new platform, and insert the associated platform text once on a new platform.
 
 The presented function has an improved include/exclude filter, which could be split off into another macro. Ideally, we'd use some dictionary to store files by platforms, but we can't yet, so we have to make do with what we have:
 
@@ -202,7 +202,7 @@ The presented function has an improved include/exclude filter, which could be sp
 {% endmacro assets2downloads -%}
 ```
 
-Admittingly it compares somewhat unfavourably: efficient, yes, reasonably KISS, but it loses the layout control and has a sorting requirement. We could now though collect 'unidentified' files into an array, and handle those separately at the end (not implemented above). As noted, doing that per platform isn't possible, unless resorting to using hardcoded arrays for each platform: icky, but doable :)
+Admittingly it compares somewhat unfavourably: efficient, yes, reasonably KISS, but it loses the layout control and has a sorting requirement. Though we could now collect 'unidentified' files into an array, and handle those separately at the end (not implemented). As noted, doing this for each platform isn't yet possible, unless resorting to using hardcoded arrays for each platform: icky, but doable :)
 
 Note that:
 - the example only processes the filename (not subdirectories)
@@ -219,7 +219,7 @@ We will only suggest some starting points:
 - get the build system to generate such a file, i.e. using CPack and [`CPACK_POST_BUILD_SCRIPTS`](https://c	make.org/cmake/help/latest/module/CPack.html#variable:CPACK_POST_BUILD_SCRIPTS). 
 - use a OS/platforms packaging tools to query packages like DEB and RPM
 - use a system like the [Open Build Service](https://openbuildservice.org/), which IIRC even generates downloadpages (for internal consumption)
-- in 2024, we also _neeeed_ to mention AI as a magic wand of sorts ;)
+- and in 2024, we also _neeeed_ to mention AI as a magic wand of sorts ;)
 
 ## Appendices
 
@@ -238,7 +238,7 @@ message(STATUS "package filename: ${CPACK_PACKAGE_FILE_NAME}")
 The extension is added automatically. Note that:
 
 - be mindfull when cross-compiling; some CMake variables do account for these situations, some don't.
-- `description` here details the Linux distro: consider using a manually configured environment variable, set before compilation. Identifying a Linux distribution by script didn't appear that easy, the better examples looking in `/etc/` for distro-specific files. 
+- `description` here details the Linux distro: consider using a manually configured environment variable, set before compilation. Identifying a Linux distribution using scripting didn't appear that easy, the better examples looking in `/etc/` for distro-specific files. 
 
 
 ### Operating system logos

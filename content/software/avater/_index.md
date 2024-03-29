@@ -6,7 +6,6 @@ transparent = true
 redirect_to = "/software/avater/pages/info/"
 
 [extra]
-page_list_limit = 0
-page_list_hide = true
 logo = "/images/avater-35px.png"
+create_index_pagelimit=0
 +++

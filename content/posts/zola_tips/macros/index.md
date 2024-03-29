@@ -86,19 +86,19 @@ Get a page its parent section path, for use with get_section()
 ```
 
 ### List section pages upto x
-- `macro list_section_pages(section_object, page_list_limit=-1)`
+- `macro list_section_pages(section_object, pagelimit=-1)`
 
 Get a section its pages, and output each within `<li>` tags (no `<ul>`)
 
-- Upon reaching page_list_limit, output a "More..." link to the section.
+- Upon reaching pagelimit, output a "More..." link to the section.
 - Used for the [software section release index listing](/software/).
 
 ```jinja2
-{% macro list_section_pages(section_object, page_list_limit=-1) %}
+{% macro list_section_pages(section_object, pagelimit=-1) %}
 	{%- set_global pagecounter = 0 -%}
 	{% for p in section_object.pages %}
 		{#- Avoid a if/while <= loop, as unlimited range then requires some max value -#}
-		{%- if pagecounter != page_list_limit -%}
+		{%- if pagecounter != pagelimit -%}
 			<li><a href="{{ p.permalink | safe }}">{{ p.title | default(value="Page") }}</a></li>
 			{%- set_global pagecounter = pagecounter + 1 -%}
 		{%- else -%}

@@ -7,7 +7,7 @@ template = "section_subsections.html"
 
 [extra]
 hide_section_dates = true
-page_list_hide = true
+create_index_pagelimit = 0
 +++
 
 De volgende software projecten worden/werden ontwikkeld onder het syncoda label.

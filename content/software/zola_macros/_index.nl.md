@@ -6,8 +6,5 @@ transparent = true
 draft = false
 redirect_to = "posts/zola_tips/intro/"
 sort_by = "weight"
-
-[extra]
-limit_listed_subpages = 3
 +++
 

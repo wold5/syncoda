@@ -2,11 +2,11 @@
 title = "Integrating documentation markdown into a Zola (SSG) website"
 draft = false
 weight = 3
-date=2024-03-26
+date=2024-03-23
 aliases = ["posts/2023/2023-06-09-website_manual_integration/", "software/zola_tips/2024-02-24-website_manual_integration/"]
 
 [taxonomies]
-tags = ["website", "Zola"]
+tags = ["Zola"]
 
 [extra]
 toc = true

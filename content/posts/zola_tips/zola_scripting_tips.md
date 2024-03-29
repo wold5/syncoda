@@ -1,13 +1,13 @@
 +++
-title = "Scripting hints with Zola/Tera"
+title = "Scripting hints for Zola/Tera"
 description = ""
 weight = 0
 draft = false
-date = 2024-03-15
+date = 2024-03-09
 aliases=["software/zola_tips/2024-02-26-usefull_regexes/"]
 
 [taxonomies]
-tags = ["website", "Zola"]
+tags = ["Zola"]
 
 [extra]
 toc = true

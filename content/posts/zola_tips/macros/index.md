@@ -3,7 +3,7 @@ title = "Macros and templates for Zola"
 description = "Macros and templates used on syncoda.nl"
 weight = 1
 draft = false
-date=2024-03-18
+date=2024-03-16
 
 
 [taxonomies]

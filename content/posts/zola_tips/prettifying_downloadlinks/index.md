@@ -2,10 +2,10 @@
 title = "Prettifying software package downloadlinks with Zola and Jinja2/Tera templates"
 draft = false
 weight = 5
-date=2024-03-26
+date=2024-03-30
 
 [taxonomies]
-tags = ["website", "Zola"]
+tags = ["Zola"]
 
 [extra]
 toc = true

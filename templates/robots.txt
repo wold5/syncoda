@@ -1,0 +1,58 @@
+Sitemap: {{ get_url(path="sitemap.xml", trailing_slash=false) }}
+{#
+{%- if config.extra.dev %}
+User-Agent: *
+Disallow: /
+{%- else %}
+Sitemap: {{ get_url(path="sitemap.xml", trailing_slash=false) }}
+User-Agent: *
+Allow: /
+Host: {{ get_url(path="/", trailing_slash=false) }}
+{%- endif %}
+#}
+
+# Anything below from https://github.com/boehs/site/blob/master/src/_public/robots.txt
+
+# These AI systems do not cite the content they ingest, and are hence exploitative at best
+# Boehs.org does not permit usage incl. but not limited to: for large language
+# models (LLMs), machine learning and/or artificial intelligence-related
+# purposes; and/or with any of the aforementioned technologies
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# Turnitin generates money by indexing stuff without permission and without benefit to me.
+# For a product against plagiarism, it sure likes profiting off IP.
+
+User-agent: TurnitinBot
+Disallow: /
+
+User-agent: Turnitin
+Disallow: /
+
+# https://boehs.org/node/is-(my)-rss-dead
+# Who knows if it will respect it
+
+User-agent: FriendlyCrawler
+Disallow: /

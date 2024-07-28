@@ -1,5 +1,5 @@
 +++
 transparent = false
 #template = "posts.html"
-generate_feed = false
+generate_feeds = false
 +++

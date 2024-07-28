@@ -5,7 +5,7 @@ weight = 10
 #sort_by = "title"
 paginate_by = 5
 template = "section_subsections.html" #"archive.html"
-transparancy = false
+transparent = false
 
 [extra]
 hide_section_dates = true

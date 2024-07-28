@@ -11,7 +11,6 @@ tags = ["AVATeR", "C++", "Qt", "SQLite"]
 [extra]
 software = true
 logo = "/images/logo-avater.png"
-#image = "/files/avater/avater-screenshot-0.13-1.png"
 toc = true
 
 
@@ -19,7 +18,7 @@ toc = true
 ![](/images/avater-35px.png)
 AVATeR stands for Annotation Viewer and Tools for e-Readers.
 
-It supports PocketBook, Kobo and Sony e-readers. Annotations can be interactively read, searched and exported to various formats, directly from a connected e-reader. It can locally store annotations for viewing after disconnecting your e-reader; and it provides several tools, for making backups and checking databases amongst others. 
+AVATeR supports PocketBook, Kobo and Sony e-readers. Annotations can be interactively read, searched and exported to various formats, directly from a connected e-reader. It can locally store annotations for viewing after disconnecting your e-reader; and it provides several tools, for making backups and checking databases amongst others.
 
 <!-- more -->
 

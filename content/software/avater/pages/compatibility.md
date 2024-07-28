@@ -24,10 +24,10 @@ _For system requirements (for running AVATeR), see the [requirements](/software/
 ![](/images/logo-pocketbook-medium.png)
 
 # PocketBook
-AVATeR was originally developed for use with PocketBook readers, and is thus very compatible. Generally, any 6.x and most 5.x firmwares should work with AVATeR.
+AVATeR was originally developed for use with PocketBook readers, and is thus very compatible. Generally, 6.x and most 5.x firmwares should work with AVATeR.
 
 ## Tested device/firmware
-- 6.7.x (Lux 5)
+- 6.8.3090 (Lux 5)
 - 5.8.x (HD Touch 2)
 
 \

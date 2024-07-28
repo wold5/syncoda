@@ -11,7 +11,6 @@ tags = ["AVATeR", "C++", "Qt", "SQLite"]
 [extra]
 software = true
 logo = "/images/logo-avater.png"
-#image = "/files/avater/avater-screenshot-0.13-1.png"
 toc = true
 
 
@@ -19,12 +18,12 @@ toc = true
 ![](/images/avater-35px.png)
 AVATeR staat voor Annotation Viewer and Tools for e-Readers (Annotatie weergave en Tools voor e-Readers).
 
-Het programma ondersteund PocketBook, Kobo en Sony e-readers. 
-- Annotaties kunnen interactief gelezen, gezocht en ge-exporteerd worden naar diverse formaten, direct vanaf een verbonden e-reader. 
+Het programma ondersteunt PocketBook, Kobo en Sony e-readers.
+- Annotaties kunnen interactief gelezen, gezocht en worden ge-exporteerd naar diverse formaten, direct vanaf een verbonden e-reader;
 - Aantekeningen kunnen lokaal opgeslagen worden voor weergave na het loskoppelen van de e-reader; 
-- Er zijn diverse tools, voor het maken van back-ups en controle van databases, onder andere. 
+- diverse tools, voor het maken van back-ups en controle van databases, onder andere.
 
-We beheren echter (nog) geen bibliotheken op de e-reader.
+We beheren geen boeken of bibliotheken op de e-reader.
 
 <!-- more -->
 
@@ -45,11 +44,11 @@ Verdere informatie over AVATeR is volledig Engelstalig, en linkt u door naar de 
 
 ### Programma structuur
 
-AVATeR bestaat uit twee delen: de backend, waarbij de `USBScanner` tools omvat voor het controleren van USB apparaten, hotplug events en mountpoints; en de `ReaderManager` (Lezer manager), die alle Reader objecten beheerd. Bij wijzigen signaleert het een frontend UI applicatie, zoals de AVATeR UI; deze laatste omvat de annotatie weergave en tools.
+AVATeR bestaat uit twee delen: de backend, waarvan de `USBScanner` tools omvat voor het vinden van USB apparaten, aan- en afkoppelingen en aankoppelingspunten (mountpoints); en de `ReaderManager` (Lezer beheerder), die Reader objecten beheert. Bij wijzigen signaleert deze de frontend UI applicatie, zoals de AVATeR UI; deze laatste omvat de annotatie weergave en gereedschappen.
 
 ![](/files/avater/programdiagram.svg)
 
-De USBScanner zou omgezet kunnen worden naar C; het interacteert direct met WIN32/udev APIs, al zou `libusb` hiervoor ook gebruikt kunnen worden in de toekomst. De ReaderManager gebruikt C++ (in een C-achtige stijl); en bevat nog diverse Qt afhankelijkheden voor o.a. SQL, voorkeuren en debug logging. De UI bouwt op C++ en Qt, en is compatibel met Qt 5.12.x+ (gemeengoed bij Linux) en 6.x. 
+De USBScanner zou omgezet kunnen worden naar C; het interacteert direct met WIN32/udev APIs, al zou `libusb` hiervoor ook gebruikt kunnen worden in de toekomst. De ReaderManager is geschreven in C++ (in een C-achtige stijl); en bevat nog diverse Qt afhankelijkheden voor o.a. SQL, voorkeuren en debug logging. De UI bouwt op C++ en Qt. Betreft Qt is de applicatie compatibel met Qt 5.12+ en 6.7 en later.
 
 De programma bronnen zijn momenteel gesloten; de intentie is deze openbaar te maken. Het idee is om eerst de lagere delen te openen, beginnend met de USBScanner. Een liberale licentie heeft de voorkeur.
 
@@ -58,7 +57,7 @@ AVATeR begon als de PocketBook Tools plugin voor Calibre; een eerste zelfstandig
 
 ## Donaties
 
-U wordt aangemoedigd om te doneren, als dit voor u mogelijk is.
+U wordt aangemoedigd om te doneren, als dit voor u (financieel) mogelijk is.
 
 - [Donate using PayPal](https://www.paypal.com/donate/?hosted_button_id=4UATTKGGJ9V68)
 

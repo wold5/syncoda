@@ -17,14 +17,6 @@ Screenshots and logo's.
 
 <!-- more -->
 
-## Logo
-
-While not yet finalized, the logo depicts an exaggeratedly styled e-reader on top of a pop-art inspired colored background.
-
-![AVATeR logo](/images/logo-avater.png)
-
-It was designed after struggling with WIN32 API USB support over a period of weeks; the use of more psychedelic color combinations (such as pink and purple) was toned down afterwards.
-
 ## Screenshots
 
 ### v0.16
@@ -35,3 +27,12 @@ It was designed after struggling with WIN32 API USB support over a period of wee
 ![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.14-1.png)
 ![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.14-2.png)
 ![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.14-3.png)
+
+## Logo
+
+While not yet finalized, the logo depicts an exaggeratedly styled e-reader on top of a pop-art inspired background.
+
+![AVATeR logo](/images/logo-avater.png)
+
+It was designed after struggling with WIN32 API USB support over a period of weeks; the use of more psychedelic color combinations (such as pink and purple) was toned down afterwards.
+

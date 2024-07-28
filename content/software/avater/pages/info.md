@@ -23,7 +23,7 @@ It supports PocketBook, Kobo and Sony e-readers. Annotations can be interactivel
 
 <!-- more -->
 
-![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.14-2.png)
+![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.16-1.png)
 
 ## Features 
 
@@ -81,7 +81,7 @@ Supported are Windows, Linux Debian and Redhat, with Mac support being in the wo
     - improve manual backup tool (internally)
     - ~add annotation type filter~
     - ~various bugfixes~
-    - improve drawing and image processing and caching
+    - ~improve drawing and image processing and caching~
 - Planned
     - ~improve PB translation not support~
     - add Apple Mac support

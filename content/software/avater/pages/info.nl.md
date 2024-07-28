@@ -28,7 +28,7 @@ We beheren echter (nog) geen bibliotheken op de e-reader.
 
 <!-- more -->
 
-![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.14-2.png)
+![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.16-1.png)
 
 ## Informatie
 Verdere informatie over AVATeR is volledig Engelstalig, en linkt u door naar de Engelstalige zijde van de website:

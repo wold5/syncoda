@@ -1,10 +1,10 @@
 
 
-[Version 0.13.2]
+[Version 0.16]
 
-Interactive annotation viewer/exporter for **PocketBook e-readers**, with additional tools.
+Interactive annotation viewer/exporter for **PocketBook, Kobo and Sony e-readers**, with additional tools.
 
-![screenshot mainwindow](/files/avater/manual/avater-screenshot-0.13-1.png)
+![screenshot mainwindow](/files/avater/manual/avater-screenshot-0.16-1.png)
 
 We do:
 
@@ -102,6 +102,9 @@ _Note: CLI debug settings take precedence over preference debug settings (see "s
 - both forward/backward slashes are accepted
 - data directory and its content will be created *when* necessitated by user action.
 
+##### - style <name> (Qt GUI)
+
+Provided by Qt apps in generic: this argument allows defining the Qt window style used. `Fusion` is a safe choice. On misspelling a name, a list of available styles is offered.
 
 ## Main menu
 
@@ -136,24 +139,25 @@ If created, opens the 'data' directory using the OS' file browser. See [configur
 Manually check for a new program version. If an update is found, a prompt offers the choice of visiting the download page. Alternatively, you may enable/disable the automatic update check under settings.
 
 ##### Settings
-Opens the settings dialog. Settings are undocumented, but hovering over labels/options will show 'tooltip' pop-ups with information.
+Opens the settings dialog. Settings are currently undocumented, but hovering over labels/options will show 'tooltip' pop-ups with information.
 
 
 ### Profiles/Annotation Sources menu (0.10+)
 
-Any found and supported annotation sources (i.e. PB profiles) are shown here. Selecting one will clear the viewer and will load any of that source its annotations.
+Any found and supported annotation sources (i.e. PB profiles) are shown here. Selecting one will clear the viewer and will load that source its annotations (if present, else the viewer is empty).
 
 ### Help menu
 
 Offers various links and the about window, but version information.
 
 ### Debug menu (0.9.9+)
-If either debug mode is enabled, the debug menu is shown.
+If debug mode is enabled, the debug menu is shown. If compiled using Debug flags, additional tools are available.
 
-#### Log selected row SQL data (0.9.9+, experimental)
+#### Log selected row SQL data (0.9.9+, experimental PB only)
 For selected annotations, this outputs the 'raw' SQL data to the debug log. This can be used by the developers to solve certain problems.
 
 _Note: The export is currently hardcoded to use the local mirror when mirroring is enabled, else the device's databases._
+
 
 ##### Open debug logfile
 Accessible if debug messages are logged to a logfile.
@@ -594,6 +598,20 @@ On Windows, the VirtualCD application (www.virtualcd-online.com) appears to modi
 One work-around is to reassign the VirtualCD drive(s) letters to be outside the range where your e-reader is usually mounted. This settings can be modified as follows:
 
 ![screenshot of virtualcd settings fix](/files/avater/manual/fix-virtualcd.png)
+
+#### Dark mode support, disabling
+v0.16 includes fixes for darkmode support, mainly targeting Windows 11. 
+
+For Linux, the situation is more complex and under investigation. There, the default Qt `Fusion theme could suffice, its pallette needing to be styled by either AVATeR or the OS. One workaround is using Qt themes like `Adwaita-Dark` and `kvantum`, but these don't always suffice, perhaps due to the OS configuration (hence YMMV).
+
+- You may force a Qt style when invoking AVATeR from the shell/CLI, by appending e.g. `-style Fusion`. With a non-existing name, a list of available styles is generated. Various scripts and environment variables exist as well.
+
+#### SVG drawing caching
+
+For display, image data (PNG, JPG) or vector based drawings (SVG) need to be converted to bitmaps. Especially with multiple complex drawings, that are repeatedly requested, delays and hick-ups can occur. Caching the converted bitmaps is one solution to this problem, which was implemented in v0.16.
+
+- Cache size is configurable under Settings > Advanced (Hover the mousecursor over the input field for more info). 
+- Note stored bitmaps can be large, being likely stored uncompressed and with higher (redundant) color depths by default, so be liberal when increasing the cache size (expect 1-2MB per object).
 
 #### Minor issues
 

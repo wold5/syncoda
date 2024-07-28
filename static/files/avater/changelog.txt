@@ -1,3 +1,33 @@
+0.16 July 27th 2024
+- fixed: PB title sorting for empty authorfields
+- fixed: condition where enabling Local Mirror, LM copy fails (sorting issue)
+- fixed: upon Local Mirror label change, retain the device name
+- fixed: also top-align texts for media/screenshots
+- fixed: prevent duplicate model creation
+- fixed: removed redundant LM removal message
+
+- fixed: improved darkmode support (text and background colors, icons)
+- fixed: Windows 11 darkmode for Qt <6.7.3 (force fusion style)
+
+- added image caching for media and SVG drawings
+- added PB color 3 detection (WIP, see release notes)
+- exposed column resize delay setting under Settings > Advanced
+- added open prefs directory shortcut in Main menu
+- added icon for deleted/faulty media/svg
+- added report Git commit hash and Qt GUI theme
+
+# Various internal changes/fixes
+- fixed: PB and Kobo annotation IDHash and modification time (incorrect columns, unused)
+- moved LM scanner into ReaderManager
+- signal const references
+
+- added exception handler in main for release builds
+- cleaned up CMake, enabled CCache
+- added CMake flags for ZIP, XML, GUI support (WIP)
+- moved most Qt metatype registrations out of QtExports.h
+- removed most header interdependencies/references
+
+
 0.15 February 10th 2024
 - fixed: exporter image embedding (removed redundant quote)
 - fixed: exporter HTML, convert linebreaks
@@ -21,6 +51,7 @@
 - changed: sort devices by vendor
 - changed: extra checks for PB annotation import
 - minor internal improvements (toggling case-sensitive, etc.)
+
 
 0.14 January 3rd 2024
 - fixed HTML export RGB colorcodes

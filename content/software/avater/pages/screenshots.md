@@ -27,6 +27,10 @@ It was designed after struggling with WIN32 API USB support over a period of wee
 
 ## Screenshots
 
+### v0.16
+![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.16-1.png)
+![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.16-2.png)
+
 ### v0.14
 ![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.14-1.png)
 ![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.14-2.png)

@@ -47,7 +47,7 @@ For beginners, a brief description of a KDiff3 session follows:
 
 Most SSG scripting languages offer a limited but _quite sufficient_ command set, sometimes requiring workarounds. Accept scripts won't necessarily be smart or efficient (as scripts run locally, optimization is less important anyway).
 
-Listed are some limitations encountered with Zola (v0.17) and [Tera v1.x](https://tera.netlify.app/docs/) (Jinja-like) templating engine. _Not to diminish either, but to excuse any apparently poor scripting on my, and perhaps your, behalf._
+Listed are some limitations encountered with Zola (v0.17) and [Tera v1.x](https://keats.github.io/tera/docs/) (Jinja-like) templating engine. _Not to diminish either, but to excuse any apparently poor scripting on my, and perhaps your, behalf._
 
 - regex matching: limited to Boolean matches, no capture groups _(rarely used)_ _(capture groups can be emulated somewhat)_
 - no appending to **nested** arrays. _There are [workarounds](https://zola.discourse.group/t/allow-load-data-to-take-a-literal/1165/3), but they're not pretty. Support may arrive eventually._
@@ -96,7 +96,7 @@ Passing pages and sections as macro arguments, can be done using their path (str
 _Note: Clarify an expected type in the argument variables names, using `path` or `*_object` affix._
 
 ### Avoid double checking arguments in the macro
-Avoid macros code that double checks some provided argument against a value in the `page.extra` array or object. Better move such checks into the template, and let the macro be all about its task.
+Avoid macro code that double checks some provided argument against a value in the `page.extra` array or object. Better to move that check into the parent template/macro, and let each macro be all about its task.
 
 ### Including plaintext files
 

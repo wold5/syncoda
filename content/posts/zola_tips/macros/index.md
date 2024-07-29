@@ -32,7 +32,9 @@ _! Note these templates may work with themes other than [Abridge](https://github
 For the current templates, see [/templates/  [github]](https://github.com/wold5/syncoda/blob/master/templates/).
 
 
-### page_software_release.html
+### Software release page
+`templates/page_software_release.html`
+
 Software release page, offering:
 - release remarks
 - download menu list (macro that utilises `page.assets`). 
@@ -43,7 +45,9 @@ which in turn depend on various macros.
 
 An example is the [AVATeR v0.15 release page](/software/avater/releases/0.15/).
 
-### section_redirect_to _parent_firstpage.html
+### Latest release redirect
+`templates/section_redirect_to_parent_firstpage.html`
+
 Subsection, that redirects to the first ordered page for its parent section. Allows creating a `/project/releases/latest/` that redirects to, say, `/project/releases/v0.16/`. 
 
 - Why a subsection? It can access its parent section(s) using `{{ section.ancestors }}`; its direct parent being `{{ section.ancestors | last }}`. This avoids hardcoding a section path.
@@ -66,8 +70,12 @@ Subsection, that redirects to the first ordered page for its parent section. All
 </body>
 ```
 
-### section_subsections.html
-Section template that renders a tree with pages and subsections and their pages, etc. 
+### Page+section tree index
+`templates/section_subsections.html`
+
+Section template that (recursively) renders a tree with pages and subsections and their pages, etc. Uses the [create_index macro](#page-and-section-index). Example screenshot:
+
+![](zola_macro_createindex.png)
 
 - Used on the [software index](/software/) and its child sections, like [/software/avater/releases/](/software/avater/releases/)
 - Upon reaching `maxdepth`, a `[[[more sections...]]]` link is provided. 

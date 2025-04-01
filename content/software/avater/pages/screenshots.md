@@ -2,7 +2,7 @@
 title = "AVATeR Screenshots/logo"
 description = "Project screenshots and logo"
 date = 2022-03-02T23:44:21+01:00
-updated = 2023-05-05T00:00:00+01:00
+updated = 2025-01-19T00:00:00+01:00
 weight = 5
 
 [taxonomies]
@@ -18,6 +18,12 @@ Screenshots and logo's.
 <!-- more -->
 
 ## Screenshots
+
+### v0.17.1 macOS beta
+![AVATeR MacOS beta](/files/avater/screenshots/screenshot-avater_0.17.1_macos_beta.png)
+
+### v0.17
+![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.17-1.png)
 
 ### v0.16
 ![AVATeR screenshot](/files/avater/screenshots/avater-screenshot-0.16-1.png)

@@ -1,3 +1,39 @@
+0.17 Jan 18th 2025
+
+- changed: on Windows keep using Fusion style
+- Windows: Qt updated to 6.8.1
+
+Filtering annotations
+- fixed: filtering on page range from the context menu
+- fixed for Kobo: page to/from filtering (percentage values were previously ignored)
+- fixed: on setting a filter preset, don't limit dateTo minimum date (previously required reset)
+- fixed: page filter doesn't trigger a preset change (affecting to/from dates)
+- fixed: remember setting "reset filters on device change"
+
+- added: on startup restore date and page to/from
+- changed: min/max page default to 0 and 999999
+
+Annotation Viewer
+- fixed: unblock "copy cell text" for title column
+- fixed: darkmode text-color for highlight/notecolumn colormode
+- fixed: restore manual column sorting on startup/device change
+- fixed: speedup manual sorting on date column
+- fixed mainly Sony e-readers: on rescan autoload annotation source and enable buttons
+
+- added: toggle to show/hide annotations viewer (retires advanced settings)
+- added: show counts for total/filtered/selected annotations
+- added: block contextmenu options on non-valid rows
+- added: allow tear-off menus for source and viewer settings 
+
+Internal
+- fixed: prevented double model creation on startup
+- fixed: removed redundant resort+row resize on model creation
+
+- moved annotation viewer into separate class out of mainwindow
+- various code cleanup / minor improvements
+- various preference file variable changes
+
+
 0.16 July 27th 2024
 - fixed: PB title sorting for empty authorfields
 - fixed: condition where enabling Local Mirror, LM copy fails (sorting issue)

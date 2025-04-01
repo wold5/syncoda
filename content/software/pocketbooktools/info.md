@@ -21,10 +21,9 @@ Precursor to [AVATeR](/software/avater/); AVATeR __implements__ advanced version
 
 ## Downloads
 
-Latest release: v0.9.6 2022 Aug, 26th. [Changelog](/files/pocketbooktools/about.txt).
+Latest release: v0.10 2024 Aug, 13th. [Changelog](/files/pocketbooktools/about.txt).
 
 Available in the Calibre plugin downloader, and on github.
 
 ## Remarks
-- Currently most effort goes into AVATeR. An update is planned for 2022 though.
-- It may not be as polished as the AVATeR application ;-)
+- Currently most effort goes into AVATeR. Some maintainance will be done though.

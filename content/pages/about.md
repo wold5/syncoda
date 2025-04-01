@@ -10,7 +10,7 @@ author = "W. Ouwehand"
 
 +++
 
-Syncoda.nl develops tools for (e-)reading and education, with a focus on data processing, management and improving (data-based) workflows.
+Syncoda.nl develops tools for (e-)reading and education. The focus is on data processing and improving (data-based) workflows.
 
 My interests include programming, data analysis, statistics and graphic design. 
 

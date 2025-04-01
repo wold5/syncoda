@@ -55,7 +55,7 @@ Text filters (author, title, etc.) are now retained when switching between devic
 
 ### Added Export media to clipboard HTML (experimental)
 
-While usefull, support for clipboard HTML can be spotty: 
+While useful, support for clipboard HTML can be spotty:
 - HTML images (screenshots) are accepted by most applications, including MS Office, but few image editors
 - SVG drawing support is rarer, mainly LibreOffice and Thunderbird. 
 

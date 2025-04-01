@@ -9,6 +9,7 @@
 - added Kobo and Sony Local Mirror support (Sony limited to one storage)
 - let checkdb tool report warnings separate from errors
 - update check now enforces/checks for HTTPS/SSL
+- moved Sources/Profiles menu into annotation viewer UI
 
 Manual backup/Sony
 - fixed: manual backup file count report (ignores directories)

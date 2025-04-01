@@ -14,7 +14,7 @@ series = "Zola"
 
 Explored is improving the presentation of downloadlinks on this website, providing (non-technical) users with an easy overview of software releases per OS/platform.
 
-A few approaches for grouping packages by OS/platform are discussed, with two simple scripting approaches being presented that utilise the filepath for OS identification. While fragile, this parsing approach will often be sufficient for small projects, avoiding extensive build-system integration.
+A few approaches for grouping packages by OS/platform are discussed, with two simple approaches that utilise the filepath for OS identification. While fragile, this parsing approach will suffice for small projects, avoiding extensive build-system integration.
 
 <!-- more -->
 
@@ -30,7 +30,7 @@ An example implementation being (disregard the graphical design for now):
 2. Parse the filename/path of each package
 3. Process some package manifest with details on each package.
 
-For this website, some automation was desired without over-engineering a solution, suggesting approach #2. Approach #3 would be the 'professional' approach, providing more control and avoiding parsing filepaths (fragile, even flaky) - however, when sorting files into platform-specific subdirectories, approach #2 again suffices. 
+For this website, some automation was desired without over-engineering a solution, suggesting approach #2. Approach #3 would be the 'professional' approach, providing more control and avoiding parsing filepaths (fragile, even flaky) - however, when sorting (how?) files into platform-specific subdirectories, approach #2 again suffices. 
 
 ## 1. Using manually placed links
 Don't outright dismiss manually placing (copy-pasting) links: the description can be easily changed, and with consistent filenames only the version number needs updating. A variation could even use scripting to insert a `page.app_version` number (but not in the frontmatter, unless generating that externally, but I digress). This setup is fragile in the long run (when files are moved around), but can be sufficient.
@@ -53,21 +53,20 @@ Notice that when sorted, the filenames group by platform: while not guaranteed, 
 
 ### Filepath component considerations
 
-When parsing one can utilize the parent directories, filename stem, extension or a mix of these. Discussing these involves some common knowledge, but let's walk through it, or fast forward to the [scripts](#basic-scripting-implementation).
+When parsing filepaths one can utilize the parent directories, filename stem, extension or a mix of these. Discussing these involves common knowledge, but let's walk through it, or fast forward to the [scripts](#basic-scripting-implementation).
 
 #### Path or subdirectories
-The path will usually lack OS related information, unless packages are pre-sorting packages into subdirectories like `/windows/`. The latter also simplifies path scripting considerably, but this still leaves _the initial sorting task_, to be done manually, by the build system (ideally) or some external script. \
-And even if the path suffices, it can be argued that a downloaded file ought to be still identifiable as to the platform, etc..
+The path will usually lack OS related information, unless packages are pre-sorting packages into subdirectories like `/windows/`. The latter also simplifies path scripting considerably, but this still leaves _the initial sorting task_, to be done manually, by the build system (ideally) or some external script (somewhat related, it can be argued that a downloaded file ought to be still identifiable as to the platform, etc.).
 
-_Note a SSG must also support iterating through subdirectories; Zola currently does so for co-located assets. Even if not, adding this should be doable._
+_Note a SSG must also support iterating through subdirectories; Zola currently does so for co-located assets. Even if not, adding this should be doable to some SSG._
 
 #### File extension
-Package file extensions tend to be unique to each OS/platform, with some overlap. Platform-agnostic examples are Flatpack and Snap; generic ones `.run` and `.sh` for Linux, and `.pkg` as used by all BSDs. Consider also archives like `.tar.bz` or `.zip`. Re-compressed packages could be assigned `.exe.zip` to remain 'recognisable'. 
+Package file extensions tend to be unique to each OS/platform, with some overlap. Platform-agnostic examples are Flatpack and Snap; generic ones `.run` and `.sh` for Linux, and `.pkg` as used by all BSDs. Do also consider archives like `.tar.bz` or `.zip`. Re-compressed packages could be assigned `.exe.zip` to remain 'recognisable'. 
 
 The exceptions suggest that one ought to complement the extension with some OS/platform identifier in the filename stem (see also the note regarding subdirectories above).
 
 #### Filename stem
-The package stem doesn't always contain platform identifiers (e.g. "windows", "fedora"). For the CPack packaging system only Windows has `win64` (or `win32`) by default, requiring further configuration (an appendix briefly discusses editing CPack package filenames).
+The package stem by default often lacks platform identifiers (e.g. "windows", "fedora"). For the CPack packaging system only Windows has `win64` (or `win32`) by default, requiring further configuration (an appendix briefly discusses editing CPack package filenames).
 
 Modifying the file stem may not always be desirable. RPM and DEB based systems gravitate towards standard filename formats, geared at package repository _tools_. Even when ignored, compliance may still be needed in the future. For archives this matters less, as these are created outside a repository orientated workflow anyway.
 
@@ -153,7 +152,7 @@ We could do slightly better using a single iteration, as discussed next, though 
 ### Single iteration version
 The single iteration version relies on (alphabetic) sorting to group the packages by platform: a fragile (read: bad) assumption, but it can be helped somewhat. If the assumption holds, we need only check for a new platform, and insert the associated platform text once on a new platform.
 
-The presented function has an improved include/exclude filter, which could be split off into another macro. Ideally, we'd use some dictionary to store files by platforms, but we can't yet, so we have to make do with what we have:
+The presented function has an improved include/exclude filter, which could be split off into another macro. Ideally, we'd use some dictionary to store files by platforms, but we can't yet (Tera 1.x limitation), so we have to make do with what we have:
 
 ```jinja2
 {% macro assets2downloads(page, gethashes=true, include_matches="", exclude_matches=".png$|.jp[e]?g$|.gif$|.txt$|.pdf$|.bmp$|.mp4$") -%}
@@ -202,7 +201,7 @@ The presented function has an improved include/exclude filter, which could be sp
 {% endmacro assets2downloads -%}
 ```
 
-Admittingly it compares somewhat unfavourably: efficient, yes, reasonably KISS, but it loses the layout control and has a sorting requirement. Though we could now collect 'unidentified' files into an array, and handle those separately at the end (not implemented). As noted, doing this for each platform isn't yet possible, unless resorting to using hardcoded arrays for each platform: icky, but doable :)
+Admittingly it compares somewhat unfavourably: efficient, yes, reasonably KISS, but it loses the layout control and has a sorting requirement. One minor benefit is we could now collect 'unidentified' files into some array, and handle those separately at the end (not implemented). As noted, doing this for each platform isn't yet possible, unless resorting to using hardcoded arrays for each platform: icky, but doable :)
 
 Note that:
 - the example only processes the filename (not subdirectories)

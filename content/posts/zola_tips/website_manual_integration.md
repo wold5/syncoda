@@ -53,7 +53,7 @@ This approach wasn't yet needed for syncoda.nl, so we won't go into it extensive
 
 _If you've read the [intro](/posts/zola_tips/intro/), some parts will be recognisable, as they were derived from this page. Nevertheless, some additions are only discussed here._
 
-For Zola, navigation menus _can be_ derived from the section structure, which in turn is derived from the directory layout. You may off course also hardcode (externally generated) menu's.
+For Zola, navigation menus _can be_ derived from the section structure, which in turn is derived from the directory layout. One alternative is hardcoding (externally generated) menu's.
 
 ### File layout considerations
 For smaller sites, posts, pages and documentation can co-exist with some planning - assuming we use sections to build the navigation structure.
@@ -85,8 +85,8 @@ When a section has `transparency` enabled, it forwards its pages to its parent s
 The `project1/manual/_index.md` section index could then list the available manuals (best). It may also forward to a manual page, or contain the manual itself (less). 
 
 This does remove the manual page from a menu like that discussed for `layout1`:
-- you may link to it manually from other pages, ignoring the new subsection
-- create a `manuals.md` page in the `project1` root, that contains links or redirects to the `manual` subsection. Note the name can't overlap that of the `manual` section directory.
+- you may manually link from other pages, ignoring the new subsection
+- create a `manuals.md` page in the `project1` root, that contains links or redirects to the `manual` subsection. _Note the name can't overlap that of the `manual` section directory._
 - change the menu script to include subsections, by looping over the `section.subsections` variable. 
 
 You may as well consider grouping all pages into sections, and constructing the menu from sections instead. This allows news related pages to be transparently forwarded (i.e. to the frontpage), and not project related pages. This is the setup currently used for this website.

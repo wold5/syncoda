@@ -19,6 +19,7 @@ Discussed are some tips on scripting with Zola/Tera, based on building this webs
 
 <!-- more -->
 
+Note these notes and remarks apply to Tera 1.x.
 
 ## Introductory topics
 
@@ -28,7 +29,9 @@ Shortcodes are small functions suited for formatting snippets of text, like imag
 Templates build the actual pages and can include scripting. Using them separates the logic and layout from the content. At template build time, access is allowed to arbitrary page/section metadata and content. They also support shortcode-like 'macro' functions: these offer default arguments and support nesting (of macros) and recursion. Nesting allows building composite functions from smaller ones, but keep in mind macros remain basic 'return a string' functions.
 
 #### Converting shortcodes to macros and/or templates
-Shortcodes are arguably easier to start with, and can be converted into templates or macros eventually. Note the latter two use HTML instead of markdown. Beware macros can also access their parent scope (read: page/section variables), so preferably use only the macro argument variables (as recommended), and avoid overlapping variable names (i.e. `for section of section.subsection`).
+Shortcodes are arguably easier to start with, and can be converted into templates or macros eventually. Note the latter two use HTML instead of markdown. 
+
+Beware macros can also access their parent scope (read: page/section variables), so preferably use only the macro argument variables (as recommended), and avoid overlapping variable names (i.e. `for section of section.subsection`).
 
 ### Storing a theme as submodule
 Store a theme preferably as a `git` submodule within your project, so it can be updated independently. This also helps when contributing back any fixes via `git`.
@@ -67,13 +70,13 @@ Such limitations also provide challenges; one may even propose and submit improv
 
 Preferably let macros return the minimal amount of content possible: text (with links), without layout and styling elements, like `<p>`, `<br>` and `<pre>`: such elements can better reside in the templates. Other benefits include:
 
-- each macro call can receive customized styling (via template CSS ids/classes)
+- each macro call can have customized styling (via template CSS ids/classes)
 - better separates layout from content
 - this allows assigning the output to a variable
 	- which allows conditional rendering, based on an empty result (may require using `trim`)
 - better indentation control: uses the macro call position
 
-For example, the 'newer version check' on our software pages currently works like:
+For example, the 'newer version check' on the software pages here currently works like:
 
 ```Jinja2
 ### Downloads
@@ -83,12 +86,12 @@ For example, the 'newer version check' on our software pages currently works lik
 	{% endif %}
 ```
 
-Granted, sometimes this goal is harder to achieve, like when processing multiple items. Macro's could then be called piecemeal on each array object, moving the loop into the template. (Macro's can't return array objects. Granted, a macro could return a 'string-ified' dict, importable as a literal using `load_data()`, but this isn't an easy route...)
+Granted, sometimes this goal is harder to achieve, like when processing multiple items. Macro's could then be called piecemeal on each array object, moving the loop into the template. (Macro's can't return array objects. Though... a macro could return a 'string-ified' dict, importable as a literal using `load_data()`, but this isn't an easy route...)
 
 ### Macro CSS styling
-As noted, macro content can also be styled via parent elements in the template, using (modern) CSS selectors. This avoids the need for ids and classes in the macros themselves, making them easier to re-use.
+As noted, macro content can also be styled via parent elements in the template, using Id, Class or (modern) CSS selectors. This avoids the need for ids and classes in the macros themselves, making them easier to re-use.
 
-Including `style=""` CSS overrides at times can be useful and, frankly, easier: do consider topics like theme compatibility (light/dark mode) and universality/generality, such as 'warning' colours being typically red, yellow and green (Though [future] Martians may prefer other combinations).
+Including `style=""` CSS overrides at times can be useful and, frankly, easier; but do consider topics like theme compatibility (light/dark mode) and universality/generality, such as 'warning' colours being typically red, yellow and green ([future] Martians may prefer other combinations).
 
 ### Using path or object argument variables
 Passing pages and sections as macro arguments, can be done using their path (string) or the object itself. Passing an _object_ allows working with it directly, removing the need to call `get_section()` or similar functions. Especially with translations, one doesn't need to (re-)construct the subsection path. _However_, when recursing into deeper subsections certain arrays like `section.pages` don't get populated (for reasons of efficiency), requiring using `get_section()` anyway, as discussed later.
@@ -105,11 +108,11 @@ For HTML templates and macros, `load_data()` can import plain text (this may con
 - embed the plaintext in a `<pre>` HTML block which respects the plaintext linebreaks. \
 We use(d) `<pre><code>` in places, as it creates a pretty outlined block. While using CSS/SASS is best, this allows using the theme's style (do check your current theme's method for styling code blocks).
 
-## Cleaning up macro and template source output
+## Cleaning up macro and template raw source output
 While a `minify_html` config option exists (removing all 'non-functional' whitespace in the outputted source), it can still be worthwhile to check out the generated HTML sources, even if once. Reasons include fixing forgotten `| safe` calls (escaping special characters) and improving whitespace control.
 
 ### Prevent HTML escaping
-For safety reasons, standard variable output in templates and macros (in HTML format) have their special characters escaped, with `https://` becoming `"http:&#x2F;&#x2F;`. While not required, it can break scripts, complicate source reading, and marginally increase file sizes. Adding a `| safe` filter avoids this.
+For safety reasons, standard variable output in templates and macros (in HTML format) have their special characters escaped, with `https://` becoming `"http:&#x2F;&#x2F;`. While not required, this can break scripts, complicate source reading, and marginally increase file sizes. Adding a `| safe` filter avoids this.
 
 - For macros, using `safe` once in the macro is sufficient - it applies to the point where a variable is output using the `{{ }}` delimiters.
 - When re-processing (assigned) output that had `safe` applied, character escapes are applied again.
@@ -118,7 +121,7 @@ For safety reasons, standard variable output in templates and macros (in HTML fo
 Tera treats every line as 'output': even an `{% if true %}` line outputs a blank line. Webbrowsers ignore such whitespace, but they do contribute to the filesize (easily 5-20%), make the HTML source look sloppy, and for macros can add characters to a 'returned' string.
 
 To fix this Tera offers [whitespace control](https://keats.github.io/tera/docs/#whitespace-control), that removes such whitespace between statements. It is activated by adding a dash to opening _and/or_ closing delimiters like `{%-`, `{{-` and `{#-`, removing any whitespace characters prior (or after) that delimiter, at the point of insertion. \
-For example, with `{%-` the new line will be appended right next to the previous line (removing the source linebreak). Perfecting this requires some fine-tuning, and in rare instances will not completely work as one intends (`for` loops for example).
+For example, with `{%-` the new line will be appended right next to the previous line (removing the source linebreak). Perfecting this requires some fine-tuning, and in rare instances will not completely work as one intended (`for` loops for example).
 
 ### Whitespace in macro 'return' values
 Macros can be (ab)used to return some (string) value. If no whitespace control is applied within the macro, the 'return' string may include whitespaces. One indicator is when template whitespace control has no effect around the assigned variable. Other issues include 'if' checks on the assigned result being always true, or linebreaks being included. Whitespace can be removed in the macro, or by appending a `| trim` filter to the macro call that assigns the variable (note this negates any previous `safe` filters).
@@ -135,7 +138,7 @@ Functions like [`get_section`](https://www.getzola.org/documentation/templates/o
 ### Shared variable scope
 Shortcodes and macros share their parent scope: overlapping variable names can have odd results, especially when recursing.
 
-### Recursive function renaming
+### Renaming recursive functions
 If ever renaming or duplicating a recursive function for experimentation, also rename the call inside the function... 
 
 ### Deeper levelled section.pages being empty
